@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view.adapters
+package com.example.basic_recycler_view.Interface
 
 import com.example.basic_recycler_view.model.Item
 
