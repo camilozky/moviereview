@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.R
 import com.example.basic_recycler_view.model.Item
 import kotlinx.android.synthetic.main.list_item.view.imageItem
