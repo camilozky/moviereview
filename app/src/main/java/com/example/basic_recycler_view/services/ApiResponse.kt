@@ -2,7 +2,7 @@ package com.example.basic_recycler_view.services
 
 import com.google.gson.annotations.SerializedName
 
-class JsonResponse {
+class ApiResponse {
     @SerializedName("copyright")
     val copyright: String? = null
     @SerializedName("date")

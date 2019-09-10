@@ -4,9 +4,9 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface JsonService {
+interface ApiService {
     @GET("apod?")
     fun getCurrentData(
             @Query("api_key") app_id: String
-    ): Call<JsonResponse>
+    ): Call<ApiResponse>
 }

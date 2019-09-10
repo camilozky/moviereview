@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.R
 import com.example.basic_recycler_view.model.Item
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.imageItem
 import kotlinx.android.synthetic.main.list_item.view.subTitle
 import kotlinx.android.synthetic.main.list_item.view.title
@@ -30,7 +31,9 @@ class CustomAdapter(private val itemList: ArrayList<Item>, private val listener:
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindItem(item: Item, listener: AdapterEvents?) {
-            itemView.imageItem.setImageResource(item.image)
+            Picasso.get()
+                    .load(item.image)
+                    .into(itemView.imageItem)
             itemView.title.text = item.title
             itemView.subTitle.text = item.subTitle
             view.setOnClickListener {
