@@ -17,7 +17,6 @@ class CustomAdapter(private val itemList: ArrayList<Item>, private val listener:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
-
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +32,8 @@ class CustomAdapter(private val itemList: ArrayList<Item>, private val listener:
         fun bindItem(item: Item, listener: AdapterEvents?) {
             Picasso.get()
                     .load(item.image)
+                    .centerCrop()
+                    .resize(1000, 1000)
                     .into(itemView.imageItem)
             itemView.title.text = item.title
             itemView.subTitle.text = item.subTitle

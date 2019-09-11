@@ -28,7 +28,5 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataService.ResponseInt
 
     override fun sendResponse(response: ArrayList<Item>) {
         recyclerView.adapter = CustomAdapter(response, this)
-
     }
-
 }
