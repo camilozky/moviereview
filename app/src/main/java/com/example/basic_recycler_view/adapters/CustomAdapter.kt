@@ -8,8 +8,8 @@ import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.R
 import com.example.basic_recycler_view.model.Item
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_item.view.date
 import kotlinx.android.synthetic.main.list_item.view.imageItem
-import kotlinx.android.synthetic.main.list_item.view.subTitle
 import kotlinx.android.synthetic.main.list_item.view.title
 
 class CustomAdapter(private val itemList: ArrayList<Item>, private val listener: AdapterEvents) :
@@ -35,8 +35,8 @@ class CustomAdapter(private val itemList: ArrayList<Item>, private val listener:
                     .centerCrop()
                     .resize(1000, 1000)
                     .into(itemView.imageItem)
+            itemView.date.text = item.date
             itemView.title.text = item.title
-            itemView.subTitle.text = item.subTitle
             view.setOnClickListener {
                 listener?.onItemClicked(item)
             }

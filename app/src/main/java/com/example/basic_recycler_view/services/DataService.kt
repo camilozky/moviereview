@@ -49,7 +49,7 @@ class DataService(listeningActivity: Activity) {
 
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
         apiResponse?.body()?.let { response ->
-            val item = Item(0, response.title, response.explanation, response.url)
+            val item = Item(0, response.date, response.title, response.url)
             val items = ArrayList<Item>()
             items.add(item)
             responseListener.sendResponse(items)
