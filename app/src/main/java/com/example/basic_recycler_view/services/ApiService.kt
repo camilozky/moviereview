@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("apod?")
     fun getCurrentData(
-            @Query("api_key") app_id: String
+            @Query("api_key") app_id: String,
+            @Query("date") date: String
     ): Call<ApiResponse>
 }

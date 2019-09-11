@@ -7,6 +7,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 /**
  * DataService provides all data related to items
@@ -17,32 +19,45 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DataService(listeningActivity: Activity) {
 
     interface ResponseInterface {
-        fun sendResponse(response: ArrayList<Item>)
+        fun sendResponse(response: Item)
     }
 
+    var isLoadingData: Boolean = false
     private val responseListener: ResponseInterface
+    private val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    private val calendar: Calendar = Calendar.getInstance()
+    private val retrofit: Retrofit
+    private val service: ApiService
 
     init {
         responseListener = listeningActivity as ResponseInterface
-    }
-
-    fun getCurrentData() {
-        val retrofit: Retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
                 .baseUrl(BaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+        service = retrofit.create(ApiService::class.java)
+    }
 
-        val service = retrofit.create(ApiService::class.java)
-        val call = service.getCurrentData(AppId)
+    fun getData(firstCall: Boolean) {
+        if (!firstCall) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1)
+        }
+
+        val date = dateFormat.format(calendar.time)
+        val call = service.getCurrentData(AppId, date)
+        isLoadingData = true
 
         call.enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.code() == 200) {
                     itemResponse(response)
                 }
+                isLoadingData = false
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                t.printStackTrace()
+                isLoadingData = false
             }
         })
     }
@@ -50,9 +65,7 @@ class DataService(listeningActivity: Activity) {
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
         apiResponse?.body()?.let { response ->
             val item = Item(0, response.date, response.title, response.url)
-            val items = ArrayList<Item>()
-            items.add(item)
-            responseListener.sendResponse(items)
+            responseListener.sendResponse(item)
         }
     }
 

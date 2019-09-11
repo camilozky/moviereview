@@ -12,8 +12,9 @@ import kotlinx.android.synthetic.main.list_item.view.date
 import kotlinx.android.synthetic.main.list_item.view.imageItem
 import kotlinx.android.synthetic.main.list_item.view.title
 
-class CustomAdapter(private val itemList: ArrayList<Item>, private val listener: AdapterEvents) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val listener: AdapterEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    private val itemList: ArrayList<Item> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -25,6 +26,11 @@ class CustomAdapter(private val itemList: ArrayList<Item>, private val listener:
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(itemList[position], listener)
+    }
+
+    fun addItem(item: Item) {
+        itemList.add(item)
+        notifyItemInserted(itemList.size)
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
