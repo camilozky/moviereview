@@ -8,11 +8,18 @@ import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.R
 import com.example.basic_recycler_view.model.Item
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_item.view.adult
+import kotlinx.android.synthetic.main.list_item.view.genre_ids
 import kotlinx.android.synthetic.main.list_item.view.imageItem
-import kotlinx.android.synthetic.main.list_item.view.item_movie_genre
-import kotlinx.android.synthetic.main.list_item.view.item_movie_rating
-import kotlinx.android.synthetic.main.list_item.view.item_movie_release_date
-import kotlinx.android.synthetic.main.list_item.view.item_movie_title
+import kotlinx.android.synthetic.main.list_item.view.original_language
+import kotlinx.android.synthetic.main.list_item.view.original_title
+import kotlinx.android.synthetic.main.list_item.view.overview
+import kotlinx.android.synthetic.main.list_item.view.popularity
+import kotlinx.android.synthetic.main.list_item.view.release_date
+import kotlinx.android.synthetic.main.list_item.view.title
+import kotlinx.android.synthetic.main.list_item.view.video
+import kotlinx.android.synthetic.main.list_item.view.vote_average
+import kotlinx.android.synthetic.main.list_item.view.vote_count
 
 class CustomAdapter(private val listener: AdapterEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -43,10 +50,17 @@ class CustomAdapter(private val listener: AdapterEvents) : RecyclerView.Adapter<
                     .centerCrop()
                     .resize(1000, 1000)
                     .into(itemView.imageItem)
-            itemView.item_movie_release_date.text = item.date
-            itemView.item_movie_title.text = item.title
-            itemView.item_movie_genre.text = item.explanation
-            itemView.item_movie_rating.text = item.title
+            itemView.popularity.text = item.popularity
+            itemView.vote_count.text = item.vote_count
+            itemView.video.text = item.video
+            itemView.adult.text = item.adult
+            itemView.original_language.text = item.original_language
+            itemView.original_title.text = item.original_title
+            itemView.genre_ids.text = item.genre_ids
+            itemView.title.text = item.title
+            itemView.vote_average.text = item.vote_average
+            itemView.overview.text = item.overview
+            itemView.release_date.text = item.release_date
             view.setOnClickListener {
                 listener?.onItemClicked(item)
             }

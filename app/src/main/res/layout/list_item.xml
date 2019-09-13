@@ -19,28 +19,59 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/item_movie_release_date"
+                android:id="@+id/popularity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="date" />
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/item_movie_title"
+                android:id="@+id/vote_count"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title" />
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/item_movie_genre"
+                android:id="@+id/video"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title" />
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/item_movie_rating"
+                android:id="@+id/adult"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title" />
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/original_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/original_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/genre_ids"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/vote_average"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

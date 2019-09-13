@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.adapters.CustomAdapter
 import com.example.basic_recycler_view.model.Item
-import com.example.basic_recycler_view.services.DataService
+import com.example.basic_recycler_view.services.DataSource
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
 
-class MainActivity : AppCompatActivity(), AdapterEvents, DataService.ResponseInterface {
+class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var imageRequester: DataService
+    private lateinit var imageRequester: DataSource
     private lateinit var adapter: CustomAdapter
 
     private val lastVisibleItemPosition: Int
@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataService.ResponseInt
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
         gridLayoutManager = GridLayoutManager(this, 2)
-        imageRequester = DataService(this)
-        imageRequester.getData(true)
+        imageRequester = DataSource(this)
+        imageRequester.getData()
         setRecyclerViewScrollListener()
     }
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataService.ResponseInt
 
     private fun requestPhoto() {
         try {
-            imageRequester.getData(false)
+            imageRequester.getData()
         } catch (e: IOException) {
             e.printStackTrace()
         }

@@ -62,7 +62,7 @@ class DataSource(listeningActivity: Activity) {
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
 
         apiResponse?.body()?.let { response ->
-            val item = Item(0, response.popularity, response.vote_count, response.video, response.poster_path, response.adult, response
+            val item = Item(0, response.popularity, response.vote_count, response.video, response.poster_path, response.id, response.adult, response
                     .backdrop_path, response.original_language, response.original_title, response.genre_ids, response.title, response.vote_average,
                     response.overview, response.release_date)
             responseListener.sendResponse(item)
