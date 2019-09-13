@@ -10,13 +10,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
+
 /**
  * DataService provides all data related to items
  *
  * @author david.mazo
  */
 
-class DataService(listeningActivity: Activity) {
+class DataSource(listeningActivity: Activity) {
 
     interface ResponseInterface {
         fun sendResponse(response: Item)
@@ -38,13 +39,9 @@ class DataService(listeningActivity: Activity) {
         service = retrofit.create(ApiService::class.java)
     }
 
-    fun getData(firstCall: Boolean) {
-        if (!firstCall) {
-            calendar.add(Calendar.DAY_OF_YEAR, -1)
-        }
-
+    fun getData() {
         val date = dateFormat.format(calendar.time)
-        val call = service.getCurrentData(AppId, date)
+        val call = service.getCurrentData(AppId)
         isLoadingData = true
 
         call.enqueue(object : Callback<ApiResponse> {
@@ -63,14 +60,18 @@ class DataService(listeningActivity: Activity) {
     }
 
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
+
         apiResponse?.body()?.let { response ->
-            val item = Item(0, response.date, response.title, response.url)
+            val item = Item(0, response.popularity, response.vote_count, response.video, response.poster_path, response.adult, response
+                    .backdrop_path, response.original_language, response.original_title, response.genre_ids, response.title, response.vote_average,
+                    response.overview, response.release_date)
             responseListener.sendResponse(item)
         }
     }
 
     companion object {
-        var BaseUrl = "https://api.nasa.gov/planetary/"
-        var AppId = "4V7MxGaddZYLgLj71sYviLo6gxValkgJwNVfUBQl"
+        var BaseUrl = "https://api.themoviedb.org/3/"
+        var AppId = "99ac1d44af506e889c0cb61a2ef3fa22"
+        var Language = "en-US"
     }
 }
