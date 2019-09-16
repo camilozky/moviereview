@@ -6,27 +6,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.R
-import com.example.basic_recycler_view.model.Item
+import com.example.basic_recycler_view.services.ApiMovie
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_item.view.adult
-import kotlinx.android.synthetic.main.list_item.view.genre_ids
-import kotlinx.android.synthetic.main.list_item.view.imageItem
-import kotlinx.android.synthetic.main.list_item.view.original_language
-import kotlinx.android.synthetic.main.list_item.view.original_title
-import kotlinx.android.synthetic.main.list_item.view.overview
-import kotlinx.android.synthetic.main.list_item.view.popularity
-import kotlinx.android.synthetic.main.list_item.view.release_date
-import kotlinx.android.synthetic.main.list_item.view.title
-import kotlinx.android.synthetic.main.list_item.view.video
-import kotlinx.android.synthetic.main.list_item.view.vote_average
-import kotlinx.android.synthetic.main.list_item.view.vote_count
+import kotlinx.android.synthetic.main.list_item.view.*
 
-class CustomAdapter(private val listener: AdapterEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val listener: AdapterEvents) :
+    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    private val itemList: ArrayList<Item> = arrayListOf()
+    private val itemList: ArrayList<ApiMovie> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.list_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -37,26 +33,26 @@ class CustomAdapter(private val listener: AdapterEvents) : RecyclerView.Adapter<
         holder.bindItem(itemList[position], listener)
     }
 
-    fun addItem(item: Item) {
-        itemList.add(item)
-        notifyItemInserted(itemList.size)
+    fun addAll(items: ArrayList<ApiMovie>) {
+        itemList.addAll(items)
+        notifyItemRangeInserted(itemList.size - items.size, items.size)
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindItem(item: Item, listener: AdapterEvents?) {
+        fun bindItem(item: ApiMovie, listener: AdapterEvents?) {
             Picasso.get()
-                    .load("http://image.tmdb.org/t/p/w500" + item.poster_path)
-                    .centerCrop()
-                    .resize(1000, 1000)
-                    .into(itemView.imageItem)
+                .load("http://image.tmdb.org/t/p/w500" + item.poster_path)
+                .centerCrop()
+                .resize(1000, 1000)
+                .into(itemView.imageItem)
             itemView.popularity.text = item.popularity
             itemView.vote_count.text = item.vote_count
             itemView.video.text = item.video
             itemView.adult.text = item.adult
             itemView.original_language.text = item.original_language
             itemView.original_title.text = item.original_title
-            itemView.genre_ids.text = item.genre_ids
+            itemView.genre_ids.text = item.genre_ids?.get(0)?.toString()
             itemView.title.text = item.title
             itemView.vote_average.text = item.vote_average
             itemView.overview.text = item.overview

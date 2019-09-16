@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.adapters.CustomAdapter
-import com.example.basic_recycler_view.model.Item
+import com.example.basic_recycler_view.services.ApiMovie
 import com.example.basic_recycler_view.services.DataSource
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
 
 class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
@@ -26,11 +26,11 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
             gridLayoutManager.findLastVisibleItemPosition()
         }
 
-    override fun sendResponse(response: Item) {
-        adapter.addItem(response)
+    override fun sendResponse(response: ArrayList<ApiMovie>?) {
+        response?.let { adapter.addAll(it) }
     }
 
-    override fun onItemClicked(item: Item) {
+    override fun onItemClicked(item: ApiMovie) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

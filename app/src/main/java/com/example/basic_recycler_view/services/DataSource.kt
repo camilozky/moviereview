@@ -1,14 +1,13 @@
 package com.example.basic_recycler_view.services
 
 import android.app.Activity
-import com.example.basic_recycler_view.model.Item
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.util.*
 
 
 /**
@@ -20,7 +19,7 @@ import java.util.Calendar
 class DataSource(listeningActivity: Activity) {
 
     interface ResponseInterface {
-        fun sendResponse(response: Item)
+        fun sendResponse(response: ArrayList<ApiMovie>?)
     }
 
     var isLoadingData: Boolean = false
@@ -48,12 +47,15 @@ class DataSource(listeningActivity: Activity) {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.code() == 200) {
                     itemResponse(response)
+                } else {
+                    itemResponse(null)
                 }
                 isLoadingData = false
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 t.printStackTrace()
+                itemResponse(null)
                 isLoadingData = false
             }
         })
@@ -62,10 +64,7 @@ class DataSource(listeningActivity: Activity) {
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
 
         apiResponse?.body()?.let { response ->
-            val item = Item(0, response.popularity, response.vote_count, response.video, response.poster_path, response.id, response.adult, response
-                    .backdrop_path, response.original_language, response.original_title, response.genre_ids, response.title, response.vote_average,
-                    response.overview, response.release_date)
-            responseListener.sendResponse(item)
+            responseListener.sendResponse(response.results)
         }
     }
 

@@ -6,7 +6,6 @@ data class Item(
         val vote_count: String?,
         val video: String?,
         val poster_path: String?,
-        val id: String?,
         val adult: String?,
         val backdrop_path: String?,
         val original_language: String?,
