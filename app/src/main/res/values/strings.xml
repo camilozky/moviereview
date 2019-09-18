@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">basic-recycler-view</string>
+    <string name="app_name">Movies to Watch</string>
+    <string name="linearLayoutManager">linearLayoutManager</string>
+    <string name="gridLayoutManager">gridLayoutManager</string>
+    <string name="staggeredGridLayoutManager">staggeredGridLayoutManager</string>
+    <string name="movieHolder">movieHolder</string>
+    <string name="imageItem">imageItem</string>
+    <string name="original_title">original_title</string>
 </resources>

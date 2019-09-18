@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/linearLayoutManager"
+        android:icon="@drawable/icon_grilled"
+        android:title="@string/linearLayoutManager"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/gridLayoutManager"
+        android:icon="@drawable/icon_grilled"
+        android:title="@string/gridLayoutManager"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/staggeredGridLayoutManager"
+        android:icon="@drawable/icon_grilled"
+        android:title="@string/staggeredGridLayoutManager"
+        app:showAsAction="never" />
+
+</menu>
