@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.basic_recycler_view.Interface.AdapterEvents
+import com.bumptech.glide.Glide
+import com.example.basic_recycler_view.interfaces.AdapterEvents
 import com.example.basic_recycler_view.services.ApiMovie
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.imageItem
 import kotlinx.android.synthetic.main.list_item.view.original_title
 import kotlinx.android.synthetic.main.list_item.view.ratingBar
@@ -41,22 +41,23 @@ class CustomAdapter(private val listener: AdapterEvents) :
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-
         lateinit var item: ApiMovie
 
         @SuppressLint("SetTextI18n")
         fun bindItem(item: ApiMovie, listener: AdapterEvents?) {
             this.item = item
-            Picasso.get()
+            Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + item.poster_path)
                     .centerCrop()
-                    .resize(1000, 1000)
+                    .override(1000, 1000)
                     .into(itemView.imageItem)
             itemView.original_title.text = item.original_title
             itemView.ratingBar.rating = (item.vote_average?.toFloat() ?: 0f) / 2
             view.setOnClickListener {
                 listener?.onItemClicked(item)
             }
+
         }
     }
+
 }

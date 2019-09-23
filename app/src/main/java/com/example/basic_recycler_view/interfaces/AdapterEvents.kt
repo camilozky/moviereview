@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view.Interface
+package com.example.basic_recycler_view.interfaces
 
 import com.example.basic_recycler_view.services.ApiMovie
 

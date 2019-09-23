@@ -1,5 +1,6 @@
 package com.example.basic_recycler_view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.basic_recycler_view.Interface.AdapterEvents
 import com.example.basic_recycler_view.adapters.CustomAdapter
+import com.example.basic_recycler_view.interfaces.AdapterEvents
 import com.example.basic_recycler_view.services.ApiMovie
 import com.example.basic_recycler_view.services.DataSource
 import kotlinx.android.synthetic.main.activity_main.recyclerView
@@ -18,7 +19,6 @@ import java.io.IOException
 
 
 class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
-
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
@@ -71,6 +71,13 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
     }
 
     override fun onItemClicked(item: ApiMovie) {
+        val bundle = Bundle().apply {
+            putParcelable("object_recycler_view", item)
+        }
+        val intent = Intent(this, DetailItemActivity::class.java).apply {
+            putExtras(bundle)
+        }
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +88,8 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
         gridLayoutManager = GridLayoutManager(this, 2)
-        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        staggeredGridLayoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         imageRequester = DataSource(this)
         imageRequester.getData()
         setRecyclerViewScrollListener()
@@ -108,3 +116,4 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
 
     }
 }
+

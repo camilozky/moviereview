@@ -6,8 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.util.*
+import java.util.ArrayList
 
 
 /**
@@ -24,8 +23,6 @@ class DataSource(listeningActivity: Activity) {
 
     var isLoadingData: Boolean = false
     private val responseListener: ResponseInterface
-    private val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-    private val calendar: Calendar = Calendar.getInstance()
     private val retrofit: Retrofit
     private val service: ApiService
 
@@ -39,7 +36,6 @@ class DataSource(listeningActivity: Activity) {
     }
 
     fun getData() {
-        val date = dateFormat.format(calendar.time)
         val call = service.getCurrentData(AppId)
         isLoadingData = true
 
@@ -68,9 +64,31 @@ class DataSource(listeningActivity: Activity) {
         }
     }
 
+    fun getDataDetail() {
+        val call = service.getCurrentData(AppId)
+        isLoadingData = true
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.code() == 200) {
+                    itemResponse(response)
+                } else {
+                    itemResponse(null)
+                }
+                isLoadingData = false
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                t.printStackTrace()
+                itemResponse(null)
+                isLoadingData = false
+            }
+        })
+
+    }
+
+
     companion object {
         var BaseUrl = "https://api.themoviedb.org/3/"
         var AppId = "99ac1d44af506e889c0cb61a2ef3fa22"
-        var Language = "en-US"
     }
 }
