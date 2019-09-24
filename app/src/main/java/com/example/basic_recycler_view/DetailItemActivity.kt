@@ -1,6 +1,9 @@
 package com.example.basic_recycler_view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.basic_recycler_view.services.ApiMovie
@@ -17,6 +20,8 @@ class DetailItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         val item: ApiMovie = intent.getParcelableExtra<ApiMovie>("object_recycler_view")
         textView_movie_title.text = item.title
         textView_title_original.text = item.original_title
@@ -34,5 +39,20 @@ class DetailItemActivity : AppCompatActivity() {
                 .centerCrop()
                 .override(1000, 1000)
                 .into(image_view_ic_star)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        return true
     }
 }
