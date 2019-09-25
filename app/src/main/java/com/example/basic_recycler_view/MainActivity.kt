@@ -46,8 +46,9 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
             adapter.addAll(it)
             val databaseMovie = MovieDatabase.getDatabase(this@MainActivity)
             databaseMovie.movieDAO().saveMovie(response)
-
         }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

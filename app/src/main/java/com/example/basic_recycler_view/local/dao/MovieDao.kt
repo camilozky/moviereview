@@ -10,7 +10,7 @@ import java.util.ArrayList
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveMovie(movie: ArrayList<ApiMovie>?)
 
     @Query("SELECT * from movie")

@@ -1,5 +1,7 @@
 package com.example.basic_recycler_view.services
 
+import android.content.Context
+import com.example.basic_recycler_view.local.db.MovieDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +19,7 @@ class DataSource(listeningActivity: ResponseInterface) {
     var isLoadingData: Boolean = false
     private val responseListener: ResponseInterface = listeningActivity
     private val retrofit: Retrofit
+    private var retrofitSignal: Boolean = false
     private val service: ApiService
 
     init {
@@ -28,25 +31,37 @@ class DataSource(listeningActivity: ResponseInterface) {
     }
 
     fun getData() {
-        val call = service.getCurrentData(AppId)
-        isLoadingData = true
 
-        call.enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.code() == 200) {
-                    itemResponse(response)
-                } else {
-                    itemResponse(null)
+        if (retrofitSignal) {
+            val databaseMovie = MovieDatabase.getDatabase(responseListener as Context)
+            val tempArray = databaseMovie.movieDAO().getMovies()
+            itemLocalResponse(ArrayList(tempArray))
+            isLoadingData = false
+
+
+        } else {
+            val call = service.getCurrentData(AppId)
+            isLoadingData = true
+
+            call.enqueue(object : Callback<ApiResponse> {
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                    if (response.code() == 200) {
+                        itemResponse(response)
+                    } else {
+                        itemResponse(null)
+                    }
+                    isLoadingData = false
+                    retrofitSignal = true
                 }
-                isLoadingData = false
-            }
 
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                t.printStackTrace()
-                itemResponse(null)
-                isLoadingData = false
-            }
-        })
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    t.printStackTrace()
+                    itemResponse(null)
+                    isLoadingData = false
+                    retrofitSignal = false
+                }
+            })
+        }
     }
 
     private fun itemResponse(apiResponse: Response<ApiResponse>?) {
@@ -54,6 +69,10 @@ class DataSource(listeningActivity: ResponseInterface) {
         apiResponse?.body()?.let { response ->
             responseListener.sendResponse(response.results)
         }
+    }
+
+    private fun itemLocalResponse(localResponse: ArrayList<ApiMovie>?) {
+        responseListener.sendResponse(localResponse)
     }
 
     companion object {
