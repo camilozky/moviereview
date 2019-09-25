@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.basic_recycler_view.adapters.CustomAdapter
 import com.example.basic_recycler_view.interfaces.AdapterEvents
+import com.example.basic_recycler_view.local.db.MovieDatabase
 import com.example.basic_recycler_view.services.ApiMovie
 import com.example.basic_recycler_view.services.DataSource
 import kotlinx.android.synthetic.main.activity_main.recyclerView
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
-    private lateinit var imageRequester: DataSource
+    private lateinit var dataRequester: DataSource
     private lateinit var adapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
 
@@ -40,7 +41,11 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         }
 
     override fun sendResponse(response: ArrayList<ApiMovie>?) {
-        response?.let { adapter.addAll(it) }
+        response?.let {
+            adapter.addAll(it)
+            val databaseMovie = MovieDatabase.getDatabase(this@MainActivity)
+            databaseMovie.movieDAO().saveMovie(response)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,8 +95,8 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         gridLayoutManager = GridLayoutManager(this, 2)
         staggeredGridLayoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        imageRequester = DataSource(this)
-        imageRequester.getData()
+        dataRequester = DataSource(this)
+        dataRequester.getData()
         setRecyclerViewScrollListener()
     }
 
@@ -100,16 +105,16 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val totalItemCount = recyclerView.layoutManager!!.itemCount
-                if (!imageRequester.isLoadingData && totalItemCount == lastVisibleItemPosition + 1) {
-                    requestPhoto()
+                if (!dataRequester.isLoadingData && totalItemCount == lastVisibleItemPosition + 1) {
+                    requestDataFromDataSource()
                 }
             }
         })
     }
 
-    private fun requestPhoto() {
+    private fun requestDataFromDataSource() {
         try {
-            imageRequester.getData()
+            dataRequester.getData()
         } catch (e: IOException) {
             e.printStackTrace()
         }

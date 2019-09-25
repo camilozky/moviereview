@@ -1,6 +1,5 @@
 package com.example.basic_recycler_view.services
 
-import android.app.Activity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -9,25 +8,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 
 
-/**
- * DataService provides all data related to items
- *
- * @author david.mazo
- */
-
-class DataSource(listeningActivity: Activity) {
+class DataSource(listeningActivity: ResponseInterface) {
 
     interface ResponseInterface {
         fun sendResponse(response: ArrayList<ApiMovie>?)
     }
 
     var isLoadingData: Boolean = false
-    private val responseListener: ResponseInterface
+    private val responseListener: ResponseInterface = listeningActivity
     private val retrofit: Retrofit
     private val service: ApiService
 
     init {
-        responseListener = listeningActivity as ResponseInterface
         retrofit = Retrofit.Builder()
                 .baseUrl(BaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -63,29 +55,6 @@ class DataSource(listeningActivity: Activity) {
             responseListener.sendResponse(response.results)
         }
     }
-
-    fun getDataDetail() {
-        val call = service.getCurrentData(AppId)
-        isLoadingData = true
-        call.enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.code() == 200) {
-                    itemResponse(response)
-                } else {
-                    itemResponse(null)
-                }
-                isLoadingData = false
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                t.printStackTrace()
-                itemResponse(null)
-                isLoadingData = false
-            }
-        })
-
-    }
-
 
     companion object {
         var BaseUrl = "https://api.themoviedb.org/3/"

@@ -10,9 +10,4 @@ interface ApiService {
             @Query("api_key") app_id: String
     ): Call<ApiResponse>
 
-    @GET("movie?")
-    fun getCurrentDataDetail(
-            @Query("api_key") app_id: String,
-            @Query("movie_id") movie_id: String
-    ): Call<ApiMovieDetail>
 }
