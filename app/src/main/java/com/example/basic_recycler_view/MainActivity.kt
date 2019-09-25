@@ -17,6 +17,7 @@ import com.example.basic_recycler_view.services.ApiMovie
 import com.example.basic_recycler_view.services.DataSource
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
+import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
             adapter.addAll(it)
             val databaseMovie = MovieDatabase.getDatabase(this@MainActivity)
             databaseMovie.movieDAO().saveMovie(response)
+
         }
     }
 

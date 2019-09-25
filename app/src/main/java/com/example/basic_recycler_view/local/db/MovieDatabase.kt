@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.basic_recycler_view.local.dao.MovieDao
+import com.example.basic_recycler_view.services.ApiMovie
 
-@Database(entities = [MovieEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ApiMovie::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDAO(): MovieDao
@@ -15,7 +16,7 @@ abstract class MovieDatabase : RoomDatabase() {
 
         @JvmStatic
         fun getDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
-                MovieDatabase::class.java, "MovieDatabase")
+                MovieDatabase::class.java, "MovieDatabase").allowMainThreadQueries()
                 .build()
     }
 }

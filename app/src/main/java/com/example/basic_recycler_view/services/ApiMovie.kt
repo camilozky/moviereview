@@ -1,11 +1,17 @@
 package com.example.basic_recycler_view.services
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+@Entity(tableName = "movie")
 @Parcelize
 data class ApiMovie(
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = "id") var id: Int = 0,
         @SerializedName("popularity")
         val popularity: String? = null,
         @SerializedName("vote_count")
