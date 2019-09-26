@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.basic_recycler_view.model.data.db.MovieDatabase
-import com.example.basic_recycler_view.model.data.remote.MovieReview
+import com.example.basic_recycler_view.model.local.db.MovieDatabase
+import com.example.basic_recycler_view.model.remote.MovieReview
 import com.example.basic_recycler_view.repository.MovieRepository
+import com.example.basic_recycler_view.ui.CustomAdapter
 import com.example.basic_recycler_view.ui.MovieReviewEvents
-import com.example.basic_recycler_view.ui.adapters.CustomAdapter
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
 import java.util.ArrayList

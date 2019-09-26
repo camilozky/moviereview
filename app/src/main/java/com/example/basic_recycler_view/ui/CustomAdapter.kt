@@ -1,12 +1,12 @@
-package com.example.basic_recycler_view.ui.adapters
+package com.example.basic_recycler_view.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.basic_recycler_view.model.data.remote.MovieReview
-import com.example.basic_recycler_view.ui.MovieReviewEvents
+import com.example.basic_recycler_view.R
+import com.example.basic_recycler_view.model.remote.MovieReview
 import kotlinx.android.synthetic.main.list_item.view.imageItem
 import kotlinx.android.synthetic.main.list_item.view.original_title
 import kotlinx.android.synthetic.main.list_item.view.ratingBar
@@ -17,7 +17,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
     private val itemList: ArrayList<MovieReview> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(com.example.basic_recycler_view.R.layout.list_item, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
     }
 
     override fun getItemCount(): Int {

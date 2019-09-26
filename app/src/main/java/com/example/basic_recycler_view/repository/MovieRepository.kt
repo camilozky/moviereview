@@ -1,17 +1,16 @@
 package com.example.basic_recycler_view.repository
 
 import android.content.Context
-import com.example.basic_recycler_view.model.data.db.MovieDatabase
-import com.example.basic_recycler_view.model.data.remote.ApiService
-import com.example.basic_recycler_view.model.data.remote.MovieResponse
-import com.example.basic_recycler_view.model.data.remote.MovieReview
+import com.example.basic_recycler_view.model.local.db.MovieDatabase
+import com.example.basic_recycler_view.model.remote.ApiService
+import com.example.basic_recycler_view.model.remote.MovieResponse
+import com.example.basic_recycler_view.model.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
-
 
 class MovieRepository(listeningActivity: ResponseInterface) {
 
