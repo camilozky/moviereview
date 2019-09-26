@@ -13,13 +13,13 @@ import java.util.ArrayList
 class DataSource(listeningActivity: ResponseInterface) {
 
     interface ResponseInterface {
-        fun sendResponse(response: ArrayList<ApiMovie>?)
+        fun sendResponse(response: ArrayList<MovieReview>?)
     }
 
     var isLoadingData: Boolean = false
     private val responseListener: ResponseInterface = listeningActivity
     private val retrofit: Retrofit
-    private var retrofitSignal: Boolean = false
+    private var hasConnection: Boolean = false
     private val service: ApiService
 
     init {
@@ -32,7 +32,7 @@ class DataSource(listeningActivity: ResponseInterface) {
 
     fun getData() {
 
-        if (retrofitSignal) {
+        if (hasConnection) {
             val databaseMovie = MovieDatabase.getDatabase(responseListener as Context)
             val tempArray = databaseMovie.movieDAO().getMovies()
             itemLocalResponse(ArrayList(tempArray))
@@ -51,14 +51,14 @@ class DataSource(listeningActivity: ResponseInterface) {
                         itemResponse(null)
                     }
                     isLoadingData = false
-                    retrofitSignal = true
+                    hasConnection = true
                 }
 
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                     t.printStackTrace()
                     itemResponse(null)
                     isLoadingData = false
-                    retrofitSignal = false
+                    hasConnection = false
                 }
             })
         }
@@ -71,7 +71,7 @@ class DataSource(listeningActivity: ResponseInterface) {
         }
     }
 
-    private fun itemLocalResponse(localResponse: ArrayList<ApiMovie>?) {
+    private fun itemLocalResponse(localResponse: ArrayList<MovieReview>?) {
         responseListener.sendResponse(localResponse)
     }
 

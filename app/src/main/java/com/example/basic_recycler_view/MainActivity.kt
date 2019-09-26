@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.basic_recycler_view.adapters.CustomAdapter
 import com.example.basic_recycler_view.interfaces.AdapterEvents
 import com.example.basic_recycler_view.local.db.MovieDatabase
-import com.example.basic_recycler_view.services.ApiMovie
 import com.example.basic_recycler_view.services.DataSource
+import com.example.basic_recycler_view.services.MovieReview
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
 import java.util.ArrayList
-
 
 class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -28,11 +27,6 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
     private lateinit var adapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
 
-    companion object {
-        const val LINEAR_LAYOUT: Int = 1
-        const val GRILL_LAYOUT: Int = 2
-        const val STAGGERED_LAYOUT: Int = 3
-    }
 
     private val lastVisibleItemPosition: Int
         get() = if (recyclerView.layoutManager == linearLayoutManager) {
@@ -41,14 +35,12 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
             gridLayoutManager.findLastVisibleItemPosition()
         }
 
-    override fun sendResponse(response: ArrayList<ApiMovie>?) {
+    override fun sendResponse(response: ArrayList<MovieReview>?) {
         response?.let {
             adapter.addAll(it)
             val databaseMovie = MovieDatabase.getDatabase(this@MainActivity)
             databaseMovie.movieDAO().saveMovie(response)
         }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -57,7 +49,6 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (layoutState) {
             LINEAR_LAYOUT -> {
                 recyclerView.layoutManager = gridLayoutManager
@@ -78,7 +69,7 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onItemClicked(item: ApiMovie) {
+    override fun onItemClicked(item: MovieReview) {
         val bundle = Bundle().apply {
             putParcelable("object_recycler_view", item)
         }
@@ -121,7 +112,11 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
 
+    companion object {
+        const val LINEAR_LAYOUT: Int = 1
+        const val GRILL_LAYOUT: Int = 2
+        const val STAGGERED_LAYOUT: Int = 3
     }
 }
-

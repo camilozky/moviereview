@@ -10,5 +10,5 @@ class ApiResponse {
     @SerializedName("total_pages")
     val total_pages: Double = 0.0
     @SerializedName("results")
-    val results: ArrayList<ApiMovie>? = null
+    val results: ArrayList<MovieReview>? = null
 }

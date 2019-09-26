@@ -9,31 +9,32 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "movie")
 @Parcelize
-data class ApiMovie(
+data class MovieReview(
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id") var id: Int = 0,
+        @ColumnInfo(name = "id")
+        var id: Int = 0,
         @SerializedName("popularity")
         val popularity: String? = null,
-        @SerializedName("vote_count")
-        val vote_count: String? = null,
+        @SerializedName("voteCount")
+        val voteCount: String? = null,
         @SerializedName("video")
         val video: String? = null,
         @SerializedName("poster_path")
-        val poster_path: String? = null,
+        val posterPath: String? = null,
         @SerializedName("adult")
         val adult: String? = null,
         @SerializedName("backdrop_path")
-        val backdrop_path: String? = null,
+        val backdropPath: String? = null,
         @SerializedName("original_language")
-        val original_language: String? = null,
+        val originalLanguage: String? = null,
         @SerializedName("original_title")
-        val original_title: String? = null,
+        val originalTitle: String? = null,
         @SerializedName("title")
         val title: String? = null,
         @SerializedName("vote_average")
-        val vote_average: String? = null,
+        val voteAverage: String? = null,
         @SerializedName("overview")
         val overview: String? = null,
         @SerializedName("release_date")
-        val release_date: String? = null
+        val releaseDate: String? = null
 ) : Parcelable

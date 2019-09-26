@@ -1,7 +1,7 @@
 package com.example.basic_recycler_view.interfaces
 
-import com.example.basic_recycler_view.services.ApiMovie
+import com.example.basic_recycler_view.services.MovieReview
 
 interface AdapterEvents {
-    fun onItemClicked(item: ApiMovie)
+    fun onItemClicked(item: MovieReview)
 }

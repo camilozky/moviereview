@@ -6,7 +6,7 @@ data class ApiMovieDetail(
 
         @SerializedName("adult")
         val adult: String? = null,
-        @SerializedName("backdrop_path")
+        @SerializedName("backdropPath")
         val backdrop_path: String? = null,
         @SerializedName("belongs_to_collection")
         val belongs_to_collection: String? = null,
@@ -18,17 +18,17 @@ data class ApiMovieDetail(
         val id: String? = null,
         @SerializedName("imdb_id")
         val imdb_id: String? = null,
-        @SerializedName("original_language")
+        @SerializedName("originalLanguage")
         val original_language: String? = null,
-        @SerializedName("original_title")
+        @SerializedName("originalTitle")
         val original_title: String? = null,
         @SerializedName("overview")
         val overview: String? = null,
         @SerializedName("popularity")
         val popularity: String? = null,
-        @SerializedName("poster_path")
+        @SerializedName("posterPath")
         val poster_path: String? = null,
-        @SerializedName("release_date")
+        @SerializedName("releaseDate")
         val release_date: String? = null,
         @SerializedName("revenue")
         val revenue: String? = null,
