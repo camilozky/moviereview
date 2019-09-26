@@ -41,6 +41,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
             Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + item.posterPath)
                     .centerCrop()
+                    .fitCenter()
                     .override(1000, 1000)
                     .into(itemView.movieImage)
             itemView.original_title.text = item.originalTitle

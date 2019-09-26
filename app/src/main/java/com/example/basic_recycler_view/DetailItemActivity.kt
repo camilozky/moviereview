@@ -32,11 +32,13 @@ class DetailItemActivity : AppCompatActivity() {
         Glide.with(imageView_movie_picture)
                 .load("http://image.tmdb.org/t/p/w500" + item.posterPath)
                 .centerCrop()
+                .fitCenter()
                 .override(1000, 1000)
                 .into(imageView_movie_picture)
         Glide.with(image_view_ic_star)
                 .load("http://image.tmdb.org/t/p/w500" + item.backdropPath)
                 .centerCrop()
+                .fitCenter()
                 .override(1000, 1000)
                 .into(image_view_ic_star)
     }
