@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.basic_recycler_view.R
 import com.example.basic_recycler_view.model.remote.MovieReview
-import kotlinx.android.synthetic.main.list_item.view.imageItem
+import kotlinx.android.synthetic.main.list_item.view.movieImage
 import kotlinx.android.synthetic.main.list_item.view.original_title
 import kotlinx.android.synthetic.main.list_item.view.ratingBar
 
@@ -30,7 +30,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
 
     fun addAll(items: ArrayList<MovieReview>) {
         itemList.addAll(items)
-        notifyItemRangeInserted(itemList.size - items.size, items.size)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -42,7 +42,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
                     .load("http://image.tmdb.org/t/p/w500" + item.posterPath)
                     .centerCrop()
                     .override(1000, 1000)
-                    .into(itemView.imageItem)
+                    .into(itemView.movieImage)
             itemView.original_title.text = item.originalTitle
             itemView.ratingBar.rating = (item.voteAverage?.toFloat() ?: 0f) / 2
             view.setOnClickListener {
