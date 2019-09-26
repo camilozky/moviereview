@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view.services
+package com.example.basic_recycler_view.model.data.remote
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -8,6 +8,6 @@ interface ApiService {
     @GET("movie/popular?")
     fun getCurrentData(
             @Query("api_key") app_id: String
-    ): Call<ApiResponse>
+    ): Call<MovieResponse>
 
 }

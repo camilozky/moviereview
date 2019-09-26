@@ -1,8 +1,8 @@
-package com.example.basic_recycler_view.services
+package com.example.basic_recycler_view.model.data.remote
 
 import com.google.gson.annotations.SerializedName
 
-class ApiResponse {
+class MovieResponse {
     @SerializedName("page")
     val page: Int = 0
     @SerializedName("total_results")

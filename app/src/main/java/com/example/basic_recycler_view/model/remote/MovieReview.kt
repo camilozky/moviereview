@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view.services
+package com.example.basic_recycler_view.model.data.remote
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

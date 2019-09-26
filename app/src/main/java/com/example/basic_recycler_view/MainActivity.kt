@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.basic_recycler_view.adapters.CustomAdapter
-import com.example.basic_recycler_view.interfaces.AdapterEvents
-import com.example.basic_recycler_view.local.db.MovieDatabase
-import com.example.basic_recycler_view.services.DataSource
-import com.example.basic_recycler_view.services.MovieReview
+import com.example.basic_recycler_view.model.data.db.MovieDatabase
+import com.example.basic_recycler_view.model.data.remote.MovieReview
+import com.example.basic_recycler_view.repository.MovieRepository
+import com.example.basic_recycler_view.ui.MovieReviewEvents
+import com.example.basic_recycler_view.ui.adapters.CustomAdapter
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
 import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInterface {
+class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
-    private lateinit var dataRequester: DataSource
+    private lateinit var dataRequester: MovieRepository
     private lateinit var adapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
 
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), AdapterEvents, DataSource.ResponseInte
         gridLayoutManager = GridLayoutManager(this, 2)
         staggeredGridLayoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        dataRequester = DataSource(this)
+        dataRequester = MovieRepository(this)
         dataRequester.getData()
         setRecyclerViewScrollListener()
     }

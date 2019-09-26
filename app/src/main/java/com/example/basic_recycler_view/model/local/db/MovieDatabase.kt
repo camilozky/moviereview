@@ -1,11 +1,11 @@
-package com.example.basic_recycler_view.local.db
+package com.example.basic_recycler_view.model.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.basic_recycler_view.local.dao.MovieDao
-import com.example.basic_recycler_view.services.MovieReview
+import com.example.basic_recycler_view.model.data.local.dao.MovieDao
+import com.example.basic_recycler_view.model.data.remote.MovieReview
 
 @Database(entities = [MovieReview::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {

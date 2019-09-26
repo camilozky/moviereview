@@ -1,17 +1,17 @@
-package com.example.basic_recycler_view.adapters
+package com.example.basic_recycler_view.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.basic_recycler_view.interfaces.AdapterEvents
-import com.example.basic_recycler_view.services.MovieReview
+import com.example.basic_recycler_view.model.data.remote.MovieReview
+import com.example.basic_recycler_view.ui.MovieReviewEvents
 import kotlinx.android.synthetic.main.list_item.view.imageItem
 import kotlinx.android.synthetic.main.list_item.view.original_title
 import kotlinx.android.synthetic.main.list_item.view.ratingBar
 
-class CustomAdapter(private val listener: AdapterEvents) :
+class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private val itemList: ArrayList<MovieReview> = arrayListOf()
@@ -36,7 +36,7 @@ class CustomAdapter(private val listener: AdapterEvents) :
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         lateinit var item: MovieReview
 
-        fun bindItem(item: MovieReview, listener: AdapterEvents?) {
+        fun bindItem(item: MovieReview, listener: MovieReviewEvents?) {
             this.item = item
             Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + item.posterPath)

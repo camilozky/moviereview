@@ -1,7 +1,10 @@
-package com.example.basic_recycler_view.services
+package com.example.basic_recycler_view.repository
 
 import android.content.Context
-import com.example.basic_recycler_view.local.db.MovieDatabase
+import com.example.basic_recycler_view.model.data.db.MovieDatabase
+import com.example.basic_recycler_view.model.data.remote.ApiService
+import com.example.basic_recycler_view.model.data.remote.MovieResponse
+import com.example.basic_recycler_view.model.data.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 
 
-class DataSource(listeningActivity: ResponseInterface) {
+class MovieRepository(listeningActivity: ResponseInterface) {
 
     interface ResponseInterface {
         fun sendResponse(response: ArrayList<MovieReview>?)
@@ -43,8 +46,8 @@ class DataSource(listeningActivity: ResponseInterface) {
             val call = service.getCurrentData(AppId)
             isLoadingData = true
 
-            call.enqueue(object : Callback<ApiResponse> {
-                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+            call.enqueue(object : Callback<MovieResponse> {
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     if (response.code() == 200) {
                         itemResponse(response)
                     } else {
@@ -54,7 +57,7 @@ class DataSource(listeningActivity: ResponseInterface) {
                     hasConnection = true
                 }
 
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                     itemResponse(null)
                     isLoadingData = false
@@ -64,7 +67,7 @@ class DataSource(listeningActivity: ResponseInterface) {
         }
     }
 
-    private fun itemResponse(apiResponse: Response<ApiResponse>?) {
+    private fun itemResponse(apiResponse: Response<MovieResponse>?) {
 
         apiResponse?.body()?.let { response ->
             responseListener.sendResponse(response.results)
