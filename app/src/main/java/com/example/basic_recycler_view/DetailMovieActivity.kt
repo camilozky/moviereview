@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.detail_item.textView_overview
 import kotlinx.android.synthetic.main.detail_item.textView_title_original
 import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
 
-class DetailItemActivity : AppCompatActivity() {
+class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)

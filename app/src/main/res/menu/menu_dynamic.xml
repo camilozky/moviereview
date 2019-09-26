@@ -8,5 +8,4 @@
         android:title="@string/linearLayoutManager"
         app:showAsAction="always" />
 
-
 </menu>

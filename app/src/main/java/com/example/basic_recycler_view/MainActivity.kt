@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         val bundle = Bundle().apply {
             putParcelable("object_recycler_view", item)
         }
-        val intent = Intent(this, DetailItemActivity::class.java).apply {
+        val intent = Intent(this, DetailMovieActivity::class.java).apply {
             putExtras(bundle)
         }
         startActivity(intent)
