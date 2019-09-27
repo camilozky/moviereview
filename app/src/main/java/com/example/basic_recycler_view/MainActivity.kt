@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
-    private lateinit var dataRequester: MovieRepository
-    private lateinit var adapter: CustomAdapter
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
 
 
@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
             gridLayoutManager.findLastVisibleItemPosition()
         }
 
-    override fun sendResponse(response: ArrayList<MovieReview>?) {
-        response?.let {
-            adapter.addAll(it)
-            val databaseMovie = MovieDatabase.getDatabase(this@MainActivity)
-            databaseMovie.movieDAO().saveMovie(response)
+    override fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
+        arrayListMovieReview?.let {
+            customAdapter.addAll(it)
+            val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
+            movieDatabase.movieDAO().saveMovie(arrayListMovieReview)
         }
     }
 
@@ -48,30 +48,30 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         when (layoutState) {
             LINEAR_LAYOUT -> {
                 recyclerView.layoutManager = gridLayoutManager
                 layoutState = GRILL_LAYOUT
-                item.icon = ContextCompat.getDrawable(this, R.drawable.icon_grilled)
+                menuItem.icon = ContextCompat.getDrawable(this, R.drawable.icon_grilled)
             }
             GRILL_LAYOUT -> {
                 recyclerView.layoutManager = staggeredGridLayoutManager
                 layoutState = STAGGERED_LAYOUT
-                item.icon = ContextCompat.getDrawable(this, R.drawable.icon_staggered)
+                menuItem.icon = ContextCompat.getDrawable(this, R.drawable.icon_staggered)
             }
             STAGGERED_LAYOUT -> {
                 recyclerView.layoutManager = linearLayoutManager
                 layoutState = LINEAR_LAYOUT
-                item.icon = ContextCompat.getDrawable(this, R.drawable.icon_linear)
+                menuItem.icon = ContextCompat.getDrawable(this, R.drawable.icon_linear)
             }
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(menuItem)
     }
 
-    override fun onItemClicked(item: MovieReview) {
+    override fun onItemClicked(movieReview: MovieReview) {
         val bundle = Bundle().apply {
-            putParcelable("object_recycler_view", item)
+            putParcelable("object_recycler_view", movieReview)
         }
         val intent = Intent(this, DetailMovieActivity::class.java).apply {
             putExtras(bundle)
@@ -82,15 +82,14 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        adapter = CustomAdapter(this)
+        customAdapter = CustomAdapter(this)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
+        recyclerView.adapter = customAdapter
         gridLayoutManager = GridLayoutManager(this, 2)
-        staggeredGridLayoutManager =
-                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        dataRequester = MovieRepository(this)
-        dataRequester.getData()
+        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        movieRepository = MovieRepository(this)
+        movieRepository.getData()
         setRecyclerViewScrollListener()
     }
 
@@ -99,16 +98,16 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val totalItemCount = recyclerView.layoutManager!!.itemCount
-                if (!dataRequester.isLoadingData && totalItemCount == lastVisibleItemPosition + 1) {
-                    requestDataFromDataSource()
+                if (!movieRepository.isLoadingData && totalItemCount == lastVisibleItemPosition + 1) {
+                    requestDataFromMovieRepository()
                 }
             }
         })
     }
 
-    private fun requestDataFromDataSource() {
+    private fun requestDataFromMovieRepository() {
         try {
-            dataRequester.getData()
+            movieRepository.getData()
         } catch (e: IOException) {
             e.printStackTrace()
         }

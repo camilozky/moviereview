@@ -22,21 +22,25 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(R.layout.detail_item)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        val item: MovieReview = intent.getParcelableExtra<MovieReview>("object_recycler_view")
-        textView_movie_title.text = item.title
-        textView_title_original.text = item.originalTitle
-        ratingBar_average.rating = (item.voteAverage?.toFloat() ?: 0f) / 2
-        textView_average.text = ((item.voteAverage?.toFloat() ?: 0f) / 2).toString()
-        textView_title_release_date.text = item.releaseDate
-        textView_overview.text = item.overview
+        val movieReview: MovieReview = intent.getParcelableExtra("object_recycler_view")
+        inflateView(movieReview)
+    }
+
+    private fun inflateView(movieReview: MovieReview) {
+        textView_movie_title.text = movieReview.title
+        textView_title_original.text = movieReview.originalTitle
+        ratingBar_average.rating = (movieReview.voteAverage?.toFloat() ?: 0f) / 2
+        textView_average.text = ((movieReview.voteAverage?.toFloat() ?: 0f) / 2).toString()
+        textView_title_release_date.text = movieReview.releaseDate
+        textView_overview.text = movieReview.overview
         Glide.with(imageView_movie_picture)
-                .load("http://image.tmdb.org/t/p/w500" + item.posterPath)
+                .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                 .centerCrop()
                 .fitCenter()
                 .override(1000, 1000)
                 .into(imageView_movie_picture)
         Glide.with(image_view_ic_star)
-                .load("http://image.tmdb.org/t/p/w500" + item.backdropPath)
+                .load("http://image.tmdb.org/t/p/w500" + movieReview.backdropPath)
                 .centerCrop()
                 .fitCenter()
                 .override(1000, 1000)

@@ -9,5 +9,4 @@ interface ApiService {
     fun getCurrentData(
             @Query("api_key") app_id: String
     ): Call<MovieResponse>
-
 }

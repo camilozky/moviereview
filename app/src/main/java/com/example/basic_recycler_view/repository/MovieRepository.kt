@@ -12,45 +12,42 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 
-class MovieRepository(listeningActivity: ResponseInterface) {
+class MovieRepository(private val responseInterface: ResponseInterface) {
 
     interface ResponseInterface {
-        fun sendResponse(response: ArrayList<MovieReview>?)
+        fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?)
     }
 
     var isLoadingData: Boolean = false
-    private val responseListener: ResponseInterface = listeningActivity
+    var hasConnection: Boolean = false
     private val retrofit: Retrofit
-    private var hasConnection: Boolean = false
-    private val service: ApiService
+    private val apiService: ApiService
 
     init {
         retrofit = Retrofit.Builder()
-                .baseUrl(BaseUrl)
+                .baseUrl(BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-        service = retrofit.create(ApiService::class.java)
+        apiService = retrofit.create(ApiService::class.java)
     }
 
     fun getData() {
-
         if (hasConnection) {
-            val databaseMovie = MovieDatabase.getDatabase(responseListener as Context)
-            val tempArray = databaseMovie.movieDAO().getMovies()
-            itemLocalResponse(ArrayList(tempArray))
+            val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
+            val listMovieReview = movieDatabase.movieDAO().getMovies()
+            localDataResponse(ArrayList(listMovieReview))
             isLoadingData = false
 
-
         } else {
-            val call = service.getCurrentData(AppId)
+            val call = apiService.getCurrentData(APIKEY)
             isLoadingData = true
 
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     if (response.code() == 200) {
-                        itemResponse(response)
+                        networkResponse(response)
                     } else {
-                        itemResponse(null)
+                        networkResponse(null)
                     }
                     isLoadingData = false
                     hasConnection = true
@@ -58,7 +55,7 @@ class MovieRepository(listeningActivity: ResponseInterface) {
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
-                    itemResponse(null)
+                    networkResponse(null)
                     isLoadingData = false
                     hasConnection = false
                 }
@@ -66,19 +63,18 @@ class MovieRepository(listeningActivity: ResponseInterface) {
         }
     }
 
-    private fun itemResponse(apiResponse: Response<MovieResponse>?) {
-
-        apiResponse?.body()?.let { response ->
-            responseListener.sendResponse(response.results)
+    private fun networkResponse(response: Response<MovieResponse>?) {
+        response?.body()?.let { response ->
+            responseInterface.sendResponse(response.results)
         }
     }
 
-    private fun itemLocalResponse(localResponse: ArrayList<MovieReview>?) {
-        responseListener.sendResponse(localResponse)
+    private fun localDataResponse(response: ArrayList<MovieReview>?) {
+        responseInterface.sendResponse(response)
     }
 
     companion object {
-        var BaseUrl = "https://api.themoviedb.org/3/"
-        var AppId = "99ac1d44af506e889c0cb61a2ef3fa22"
+        var BASEURL = "https://api.themoviedb.org/3/"
+        var APIKEY = "99ac1d44af506e889c0cb61a2ef3fa22"
     }
 }
