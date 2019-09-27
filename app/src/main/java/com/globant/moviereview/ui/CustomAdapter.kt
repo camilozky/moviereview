@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.remote.MovieReview
-import kotlinx.android.synthetic.main.list_item.view.*
+import com.globant.moviereview.model.remote.voteRule
+import kotlinx.android.synthetic.main.list_item.view.movieImage
+import kotlinx.android.synthetic.main.list_item.view.original_title
+import kotlinx.android.synthetic.main.list_item.view.ratingBar
 
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -43,7 +46,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
                     .override(1000, 1000)
                     .into(itemView.movieImage)
             itemView.original_title.text = item.originalTitle
-            itemView.ratingBar.rating = (item.voteAverage?.toFloat() ?: 0f) / 2
+            itemView.ratingBar.rating = (item.voteAverage?.toFloat() ?: 0f) / voteRule
             view.setOnClickListener {
                 listener?.onItemClicked(item)
             }

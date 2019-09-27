@@ -7,7 +7,15 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.globant.moviereview.model.remote.MovieReview
-import kotlinx.android.synthetic.main.detail_item.*
+import com.globant.moviereview.model.remote.voteRule
+import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
+import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
+import kotlinx.android.synthetic.main.detail_item.ratingBar_average
+import kotlinx.android.synthetic.main.detail_item.textView_average
+import kotlinx.android.synthetic.main.detail_item.textView_movie_title
+import kotlinx.android.synthetic.main.detail_item.textView_overview
+import kotlinx.android.synthetic.main.detail_item.textView_title_original
+import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
 
 class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +30,10 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun inflateView(movieReview: MovieReview) {
         textView_movie_title.text = movieReview.title
         textView_title_original.text = movieReview.originalTitle
-        ratingBar_average.rating = (movieReview.voteAverage?.toFloat() ?: 0f) / 2
-        textView_average.text = ((movieReview.voteAverage?.toFloat() ?: 0f) / 2).toString()
+        with((movieReview.voteAverage?.toFloat() ?: 0f) / voteRule) {
+            ratingBar_average.rating = this
+            textView_average.text = this.toString()
+        }
         textView_title_release_date.text = movieReview.releaseDate
         textView_overview.text = movieReview.overview
         Glide.with(imageView_movie_picture)

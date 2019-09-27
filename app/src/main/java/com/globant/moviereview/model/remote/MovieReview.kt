@@ -38,3 +38,8 @@ data class MovieReview(
         @SerializedName("release_date")
         val releaseDate: String? = null
 ) : Parcelable
+
+const val VOTE_MAX = 10
+const val RATING_MAX = 5
+
+const val voteRule = VOTE_MAX / RATING_MAX
