@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view
+package com.globant.moviereview
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.basic_recycler_view.model.local.db.MovieDatabase
-import com.example.basic_recycler_view.model.remote.MovieReview
-import com.example.basic_recycler_view.repository.MovieRepository
-import com.example.basic_recycler_view.ui.CustomAdapter
-import com.example.basic_recycler_view.ui.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import com.globant.moviereview.model.local.db.MovieDatabase
+import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.repository.MovieRepository
+import com.globant.moviereview.ui.CustomAdapter
+import com.globant.moviereview.ui.MovieReviewEvents
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -84,10 +84,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         setContentView(R.layout.activity_main)
         customAdapter = CustomAdapter(this)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = customAdapter
         gridLayoutManager = GridLayoutManager(this, 2)
         staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = gridLayoutManager
+        recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
         movieRepository.getData()
         setRecyclerViewScrollListener()

@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view
+package com.moviereview.moviereview
 
 import org.junit.Test
 

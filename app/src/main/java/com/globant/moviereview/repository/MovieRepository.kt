@@ -1,16 +1,16 @@
-package com.example.basic_recycler_view.repository
+package com.globant.moviereview.repository
 
 import android.content.Context
-import com.example.basic_recycler_view.model.local.db.MovieDatabase
-import com.example.basic_recycler_view.model.remote.ApiService
-import com.example.basic_recycler_view.model.remote.MovieResponse
-import com.example.basic_recycler_view.model.remote.MovieReview
+import com.globant.moviereview.model.local.db.MovieDatabase
+import com.globant.moviereview.model.remote.ApiService
+import com.globant.moviereview.model.remote.MovieResponse
+import com.globant.moviereview.model.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
+import java.util.*
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
 

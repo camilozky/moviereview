@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view
+package com.globant.moviereview
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.basic_recycler_view", appContext.packageName)
+        assertEquals("com.globant.moviereview", appContext.packageName)
     }
 }

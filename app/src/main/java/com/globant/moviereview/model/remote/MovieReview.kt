@@ -1,4 +1,4 @@
-package com.example.basic_recycler_view.model.remote
+package com.globant.moviereview.model.remote
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -1,11 +1,11 @@
-package com.example.basic_recycler_view.model.local.dao
+package com.globant.moviereview.model.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.basic_recycler_view.model.remote.MovieReview
-import java.util.ArrayList
+import com.globant.moviereview.model.remote.MovieReview
+import java.util.*
 
 @Dao
 interface MovieDao {

@@ -1,15 +1,13 @@
-package com.example.basic_recycler_view.ui
+package com.globant.moviereview.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.basic_recycler_view.R
-import com.example.basic_recycler_view.model.remote.MovieReview
-import kotlinx.android.synthetic.main.list_item.view.movieImage
-import kotlinx.android.synthetic.main.list_item.view.original_title
-import kotlinx.android.synthetic.main.list_item.view.ratingBar
+import com.globant.moviereview.R
+import com.globant.moviereview.model.remote.MovieReview
+import kotlinx.android.synthetic.main.list_item.view.*
 
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
