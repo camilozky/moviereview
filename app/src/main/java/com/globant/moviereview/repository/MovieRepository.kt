@@ -1,8 +1,8 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
+import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.local.db.MovieDatabase
-import com.globant.moviereview.model.remote.ApiService
 import com.globant.moviereview.model.remote.MovieResponse
 import com.globant.moviereview.model.remote.MovieReview
 import retrofit2.Call
