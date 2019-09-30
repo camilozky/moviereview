@@ -15,40 +15,37 @@ import kotlinx.android.synthetic.main.list_item.view.ratingBar
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    private val itemList: ArrayList<MovieReview> = arrayListOf()
+    private val movieReviewList: ArrayList<MovieReview>=arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return movieReviewList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(itemList[position], listener)
+        holder.bindItem(movieReviewList[position], listener)
     }
 
-    fun addAll(items: ArrayList<MovieReview>) {
-        itemList.addAll(items)
+    fun addAll(arrayListMovieReview: ArrayList<MovieReview>) {
+        movieReviewList.addAll(arrayListMovieReview)
         notifyDataSetChanged()
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var item: MovieReview
-
-        fun bindItem(item: MovieReview, listener: MovieReviewEvents?) {
-            this.item = item
+        fun bindItem(movieReview: MovieReview, listener: MovieReviewEvents?) {
             Glide.with(itemView)
-                    .load("http://image.tmdb.org/t/p/w500" + item.posterPath)
+                    .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                     .centerCrop()
                     .fitCenter()
                     .override(1000, 1000)
                     .into(itemView.movieImage)
-            itemView.original_title.text = item.originalTitle
-            itemView.ratingBar.rating = (item.voteAverage?.toFloat() ?: 0f) / voteRule
+            itemView.original_title.text=movieReview.originalTitle
+            itemView.ratingBar.rating=(movieReview.voteAverage?.toFloat() ?: 0f) / voteRule
             view.setOnClickListener {
-                listener?.onItemClicked(item)
+                listener?.onItemClicked(movieReview)
             }
         }
     }

@@ -50,15 +50,15 @@ class DetailMovieActivity : AppCompatActivity() {
                 .into(image_view_ic_star)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
             android.R.id.home -> {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
                 return true
             }
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(menuItem)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
