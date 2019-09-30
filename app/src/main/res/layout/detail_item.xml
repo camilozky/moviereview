@@ -45,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.01"
             android:text="@string/average"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

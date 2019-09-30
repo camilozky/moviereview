@@ -13,7 +13,6 @@ abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDAO(): MovieDao
 
     companion object {
-        @JvmStatic
         fun getDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
                 MovieDatabase::class.java, "MovieDatabase").allowMainThreadQueries()
                 .build()

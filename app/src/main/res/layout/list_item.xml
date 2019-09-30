@@ -35,6 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/original_title" />
@@ -43,7 +45,7 @@
                 android:id="@+id/original_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="original_title"
+                android:text="@string/originalTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movieImage" />

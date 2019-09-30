@@ -5,7 +5,7 @@
     <string name="staggeredGridLayoutManager">staggeredGridLayoutManager</string>
     <string name="movieHolder">movieHolder</string>
     <string name="imageItem">imageItem</string>
-    <string name="original_title">original_title</string>
+    <string name="originalTitle">originalTitle</string>
     <string name="average">Average</string>
     <string name="release_date">Release date</string>
 </resources>
