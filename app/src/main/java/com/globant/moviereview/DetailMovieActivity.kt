@@ -1,6 +1,5 @@
 package com.globant.moviereview
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,7 +12,7 @@ import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.ratingBar_average
 import kotlinx.android.synthetic.main.detail_item.textView_average
 import kotlinx.android.synthetic.main.detail_item.textView_movie_title
-import kotlinx.android.synthetic.main.detail_item.textView_overview
+import kotlinx.android.synthetic.main.detail_item.textView_summary
 import kotlinx.android.synthetic.main.detail_item.textView_title_original
 import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
 
@@ -35,7 +34,7 @@ class DetailMovieActivity : AppCompatActivity() {
             textView_average.text = this.toString()
         }
         textView_title_release_date.text = movieReview.releaseDate
-        textView_overview.text=movieReview.summary
+        textView_summary.text=movieReview.summary
         Glide.with(imageView_movie_picture)
                 .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                 .centerCrop()
@@ -53,8 +52,7 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
+                finish()
                 return true
             }
         }
