@@ -34,7 +34,7 @@ data class MovieReview(
         @SerializedName("vote_average")
         val voteAverage: String? = null,
         @SerializedName("overview")
-        val overview: String? = null,
+        val summary: String?=null,
         @SerializedName("release_date")
         val releaseDate: String? = null
 ) : Parcelable

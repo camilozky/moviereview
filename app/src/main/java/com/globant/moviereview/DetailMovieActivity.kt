@@ -35,7 +35,7 @@ class DetailMovieActivity : AppCompatActivity() {
             textView_average.text = this.toString()
         }
         textView_title_release_date.text = movieReview.releaseDate
-        textView_overview.text = movieReview.overview
+        textView_overview.text=movieReview.summary
         Glide.with(imageView_movie_picture)
                 .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                 .centerCrop()
