@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            movieDatabase.movieDAO().insertMovie(arrayListMovieReview)
+            movieDatabase.getMovieDAO().insertMovie(arrayListMovieReview)
         }
     }
 

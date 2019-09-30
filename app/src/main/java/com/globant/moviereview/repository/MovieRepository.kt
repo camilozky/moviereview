@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
+import java.util.ArrayList
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
 
@@ -34,7 +34,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
     fun getData() {
         if (hasConnection) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
-            val listMovieReview = movieDatabase.movieDAO().getMovies()
+            val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             localDataResponse(ArrayList(listMovieReview))
             isLoadingData = false
 
