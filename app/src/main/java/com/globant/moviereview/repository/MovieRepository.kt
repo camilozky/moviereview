@@ -18,7 +18,6 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?)
     }
 
-    var isLoadingData: Boolean = false
     var hasConnection: Boolean = false
     private val retrofit: Retrofit
     private val apiService: ApiService
@@ -36,11 +35,9 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             getLocalDataResponse(ArrayList(listMovieReview))
-            isLoadingData = false
 
         } else {
             val call = apiService.getCurrentData(APIKEY)
-            isLoadingData = true
 
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
@@ -49,14 +46,12 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                     } else {
                         getNetworkResponse(null)
                     }
-                    isLoadingData = false
                     hasConnection = true
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                     getNetworkResponse(null)
-                    isLoadingData = false
                     hasConnection = false
                 }
             })

@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val totalItemCount=recyclerView.layoutManager?.itemCount
-                if (!movieRepository.isLoadingData && totalItemCount == lastVisibleItemPosition + 1) {
+                if (totalItemCount == lastVisibleItemPosition + 1) {
                     requestDataFromMovieRepository()
                 }
             }
