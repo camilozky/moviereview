@@ -11,7 +11,7 @@ import java.util.ArrayList
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movie: ArrayList<MovieReview>?)
+    fun insertMovie(movie: ArrayList<MovieReview>)
 
     @Query("SELECT * from movie")
     fun getMovies(): List<MovieReview>

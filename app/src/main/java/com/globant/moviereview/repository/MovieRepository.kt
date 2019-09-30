@@ -35,7 +35,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         if (hasConnection) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
-            localDataResponse(ArrayList(listMovieReview))
+            getLocalDataResponse(ArrayList(listMovieReview))
             isLoadingData = false
 
         } else {
@@ -45,9 +45,9 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     if (response.code() == 200) {
-                        networkResponse(response)
+                        getNetworkResponse(response)
                     } else {
-                        networkResponse(null)
+                        getNetworkResponse(null)
                     }
                     isLoadingData = false
                     hasConnection = true
@@ -55,7 +55,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
-                    networkResponse(null)
+                    getNetworkResponse(null)
                     isLoadingData = false
                     hasConnection = false
                 }
@@ -63,13 +63,13 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         }
     }
 
-    private fun networkResponse(response: Response<MovieResponse>?) {
+    private fun getNetworkResponse(response: Response<MovieResponse>?) {
         response?.body()?.let { response ->
             responseInterface.sendResponse(response.results)
         }
     }
 
-    private fun localDataResponse(response: ArrayList<MovieReview>?) {
+    private fun getLocalDataResponse(response: ArrayList<MovieReview>?) {
         responseInterface.sendResponse(response)
     }
 
