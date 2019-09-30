@@ -35,6 +35,20 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
             gridLayoutManager.findLastVisibleItemPosition()
         }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        customAdapter = CustomAdapter(this)
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        gridLayoutManager = GridLayoutManager(this, 2)
+        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = gridLayoutManager
+        recyclerView.adapter = customAdapter
+        movieRepository = MovieRepository(this)
+        movieRepository.getData()
+        setRecyclerViewScrollListener()
+    }
+
     override fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
@@ -77,20 +91,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
             putExtras(bundle)
         }
         startActivity(intent)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        customAdapter = CustomAdapter(this)
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        gridLayoutManager = GridLayoutManager(this, 2)
-        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.layoutManager = gridLayoutManager
-        recyclerView.adapter = customAdapter
-        movieRepository = MovieRepository(this)
-        movieRepository.getData()
-        setRecyclerViewScrollListener()
     }
 
     private fun setRecyclerViewScrollListener() {

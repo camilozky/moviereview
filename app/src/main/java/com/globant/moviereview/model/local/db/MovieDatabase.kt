@@ -11,6 +11,7 @@ import com.globant.moviereview.model.remote.MovieReview
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun getMovieDAO(): MovieDao
+
     companion object {
         fun getDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
                 MovieDatabase::class.java, "MovieDatabase").allowMainThreadQueries()
