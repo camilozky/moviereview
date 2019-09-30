@@ -8,9 +8,7 @@ import com.globant.moviereview.model.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
+import java.util.*
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
 
@@ -18,20 +16,10 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?)
     }
 
-    var hasConnection: Boolean = false
-    private val retrofit: Retrofit
-    private val apiService: ApiService
+    private val apiService: ApiService = ApiService.instance
 
-    init {
-        retrofit = Retrofit.Builder()
-                .baseUrl(BASEURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        apiService = retrofit.create(ApiService::class.java)
-    }
-
-    fun getData() {
-        if (hasConnection) {
+    fun getData(isConnected: Boolean) {
+        if (!isConnected) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             getLocalDataResponse(ArrayList(listMovieReview))
@@ -40,19 +28,19 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
             val call = apiService.getCurrentData(APIKEY)
 
             call.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                override fun onResponse(
+                        call: Call<MovieResponse>,
+                        response: Response<MovieResponse>
+                ) {
                     if (response.code() == 200) {
                         getNetworkResponse(response)
                     } else {
                         getNetworkResponse(null)
                     }
-                    hasConnection = true
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
-                    getNetworkResponse(null)
-                    hasConnection = false
                 }
             })
         }

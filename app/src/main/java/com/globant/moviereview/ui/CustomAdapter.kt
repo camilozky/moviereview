@@ -8,14 +8,12 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.remote.MovieReview
 import com.globant.moviereview.model.remote.voteRule
-import kotlinx.android.synthetic.main.list_item.view.movieImage
-import kotlinx.android.synthetic.main.list_item.view.original_title
-import kotlinx.android.synthetic.main.list_item.view.ratingBar
+import kotlinx.android.synthetic.main.list_item.view.*
 
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    private val movieReviewList: ArrayList<MovieReview>=arrayListOf()
+    private val movieReviewList: ArrayList<MovieReview> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -42,8 +40,8 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
                     .fitCenter()
                     .override(1000, 1000)
                     .into(itemView.movieImage)
-            itemView.original_title.text=movieReview.originalTitle
-            itemView.ratingBar.rating=(movieReview.voteAverage?.toFloat() ?: 0f) / voteRule
+            itemView.original_title.text = movieReview.originalTitle
+            itemView.ratingBar.rating = (movieReview.voteAverage?.toFloat() ?: 0f) / voteRule
             view.setOnClickListener {
                 listener?.onItemClicked(movieReview)
             }
