@@ -15,9 +15,9 @@ import com.globant.moviereview.model.remote.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.ui.CustomAdapter
 import com.globant.moviereview.ui.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
-import java.util.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            movieDatabase.movieDAO().saveMovie(arrayListMovieReview)
+            movieDatabase.movieDAO().insertMovie(arrayListMovieReview)
         }
     }
 
