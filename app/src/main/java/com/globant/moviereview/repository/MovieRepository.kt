@@ -8,13 +8,9 @@ import com.globant.moviereview.model.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
-
-    interface ResponseInterface {
-        fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?)
-    }
 
     private val apiService: ApiService = ApiService.instance
 
@@ -23,10 +19,8 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             getLocalDataResponse(ArrayList(listMovieReview))
-
         } else {
             val call = apiService.getCurrentData(APIKEY)
-
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                         call: Call<MovieResponse>,
@@ -38,7 +32,6 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                         getNetworkResponse(null)
                     }
                 }
-
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }

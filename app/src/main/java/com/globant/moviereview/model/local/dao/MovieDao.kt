@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.globant.moviereview.model.remote.MovieReview
-import java.util.ArrayList
+import java.util.*
 
 @Dao
 interface MovieDao {
@@ -19,5 +19,5 @@ interface MovieDao {
     fun getMovies(): List<MovieReview>
 
     @Query("SELECT * FROM movie WHERE movie.id=:id")
-    fun getMovieDetail(id: Int): MovieReview
+    fun getMovieDetail(id: Int?): MovieReview
 }
