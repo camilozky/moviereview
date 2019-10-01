@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
-
-
     private val lastVisibleItemPosition: Int
         get() = if (recyclerView.layoutManager == linearLayoutManager) {
             linearLayoutManager.findLastVisibleItemPosition()
@@ -59,7 +57,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            movieDatabase.getMovieDAO().insertMovie(arrayListMovieReview)
+            for (singleMovie in arrayListMovieReview) {
+                movieDatabase.getMovieDAO().insertMovie(singleMovie)
+            }
+            println(movieDatabase.getMovieDAO().getMovies().toString())
         }
     }
 
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val totalItemCount=recyclerView.layoutManager?.itemCount
+                val totalItemCount = recyclerView.layoutManager?.itemCount
                 if (totalItemCount == lastVisibleItemPosition + 1) {
                     requestDataFromMovieRepository()
                 }

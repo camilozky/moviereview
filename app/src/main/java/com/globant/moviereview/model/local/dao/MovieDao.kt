@@ -9,13 +9,15 @@ import java.util.ArrayList
 
 @Dao
 interface MovieDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovies(movie: ArrayList<MovieReview>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movie: ArrayList<MovieReview>)
+    fun insertMovie(movie: MovieReview)
 
-    @Query("SELECT * FROM movie")
+    @Query("SELECT * from movie")
     fun getMovies(): List<MovieReview>
 
-    @Query("SELECT * FROM movie WHERE movie.id = :id")
-    fun getMovie(id: Int): MovieReview
+    @Query("SELECT * FROM movie WHERE movie.id=:id")
+    fun getMovieDetail(id: Int): MovieReview
 }
