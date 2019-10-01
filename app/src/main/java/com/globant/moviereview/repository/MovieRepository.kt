@@ -8,7 +8,7 @@ import com.globant.moviereview.model.remote.MovieReview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.ArrayList
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
 

@@ -18,9 +18,9 @@ import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.ui.CustomAdapter
 import com.globant.moviereview.ui.MovieReviewEvents
 import com.globant.moviereview.utils.ConnectivityChecker
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
-import java.util.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
-
-
     private val lastVisibleItemPosition: Int
         get() = if (recyclerView.layoutManager == linearLayoutManager) {
             linearLayoutManager.findLastVisibleItemPosition()
@@ -58,7 +56,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            movieDatabase.getMovieDAO().insertMovie(arrayListMovieReview)
+            for (singleMovie in arrayListMovieReview) {
+                movieDatabase.getMovieDAO().insertMovie(singleMovie)
+            }
+            println(movieDatabase.getMovieDAO().getMovies().toString())
         }
     }
 
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val totalItemCount=recyclerView.layoutManager?.itemCount
+                val totalItemCount = recyclerView.layoutManager?.itemCount
                 if (totalItemCount == lastVisibleItemPosition + 1) {
                     requestDataFromMovieRepository()
                 }
