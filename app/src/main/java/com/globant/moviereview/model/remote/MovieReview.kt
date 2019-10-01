@@ -1,14 +1,11 @@
 package com.globant.moviereview.model.remote
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "movie")
-@Parcelize
 data class MovieReview(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
@@ -34,10 +31,10 @@ data class MovieReview(
         @SerializedName("vote_average")
         val voteAverage: String? = null,
         @SerializedName("overview")
-        val summary: String?=null,
+        val summary: String? = null,
         @SerializedName("release_date")
         val releaseDate: String? = null
-) : Parcelable
+)
 
 const val VOTE_MAX = 10
 const val RATING_MAX = 5

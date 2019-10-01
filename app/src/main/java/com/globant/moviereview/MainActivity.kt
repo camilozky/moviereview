@@ -18,9 +18,9 @@ import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.ui.CustomAdapter
 import com.globant.moviereview.ui.MovieReviewEvents
 import com.globant.moviereview.utils.ConnectivityChecker
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
-import java.util.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
         movieRepository = MovieRepository(this)
         movieRepository.getData(connectivityChecker.isConnected)
         setRecyclerViewScrollListener()
+
     }
 
     override fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
@@ -89,12 +90,9 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, MovieRepository.Res
     }
 
     override fun onItemClicked(movieReview: MovieReview) {
-        val bundle = Bundle().apply {
-            putParcelable("object_recycler_view", movieReview)
-        }
-        val intent = Intent(this, DetailMovieActivity::class.java).apply {
-            putExtras(bundle)
-        }
+        val value: String = movieReview.id.toString()
+        val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
+        intent.putExtra("idMovie", value)
         startActivity(intent)
     }
 
