@@ -44,10 +44,12 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         customAdapter = CustomAdapter(this)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         gridLayoutManager = GridLayoutManager(this, 2)
-        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        staggeredGridLayoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
-        connectivityChecker = ConnectivityChecker(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        connectivityChecker =
+                ConnectivityChecker(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
         movieRepository = MovieRepository(this)
         movieRepository.getData(connectivityChecker.isConnected)
         setRecyclerViewScrollListener()
