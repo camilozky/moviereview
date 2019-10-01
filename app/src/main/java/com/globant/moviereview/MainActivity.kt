@@ -60,7 +60,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
             for (singleMovie in arrayListMovieReview) {
                 movieDatabase.getMovieDAO().insertMovie(singleMovie)
             }
-            println(movieDatabase.getMovieDAO().getMovies().toString())
         }
     }
 
