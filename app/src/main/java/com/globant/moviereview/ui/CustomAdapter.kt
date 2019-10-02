@@ -8,7 +8,17 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.remote.MovieReview
 import com.globant.moviereview.model.remote.voteRule
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.list_item.view.movieImage
+import kotlinx.android.synthetic.main.list_item.view.original_title
+import kotlinx.android.synthetic.main.list_item.view.ratingBar
+
+/**
+ * CustomAdapter
+ *
+ * Provides access to the data items, makes a View for each item in the data set
+ *
+ * @author david.mazo
+ */
 
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {

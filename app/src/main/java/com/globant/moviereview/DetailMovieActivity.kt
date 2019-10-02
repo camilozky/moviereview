@@ -8,7 +8,22 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.model.local.db.MovieDatabase
 import com.globant.moviereview.model.remote.MovieReview
 import com.globant.moviereview.model.remote.voteRule
-import kotlinx.android.synthetic.main.detail_item.*
+import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
+import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
+import kotlinx.android.synthetic.main.detail_item.ratingBar_average
+import kotlinx.android.synthetic.main.detail_item.textView_average
+import kotlinx.android.synthetic.main.detail_item.textView_movie_title
+import kotlinx.android.synthetic.main.detail_item.textView_summary
+import kotlinx.android.synthetic.main.detail_item.textView_title_original
+import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
+
+/**
+ * DetailMovieActivity
+ *
+ * Show the detail of a selected movie in the recyclerView of the MainActivity
+ *
+ * @author juan.rendon
+ */
 
 class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

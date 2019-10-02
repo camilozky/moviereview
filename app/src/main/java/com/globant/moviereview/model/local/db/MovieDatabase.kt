@@ -7,6 +7,15 @@ import androidx.room.RoomDatabase
 import com.globant.moviereview.model.local.dao.MovieDao
 import com.globant.moviereview.model.remote.MovieReview
 
+/**
+ * MovieDatabase
+ *
+ * We can use it to create other classes
+ * It is abstract because it is implemented by Room
+ *
+ * @author david.mazo
+ */
+
 @Database(entities = [MovieReview::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 

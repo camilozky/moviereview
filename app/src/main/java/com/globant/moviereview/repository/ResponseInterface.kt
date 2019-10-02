@@ -1,7 +1,15 @@
 package com.globant.moviereview.repository
 
 import com.globant.moviereview.model.remote.MovieReview
-import java.util.*
+import java.util.ArrayList
+
+/**
+ * ResponseInterface
+ *
+ * send of an type arrayListMovieReview response
+ *
+ * @author juan.rendon
+ */
 
 interface ResponseInterface {
     fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?)

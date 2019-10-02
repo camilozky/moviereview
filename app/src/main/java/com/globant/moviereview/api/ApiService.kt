@@ -8,6 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * ApiService
+ * provide accessor implementations themoviedb
+ * retrofit service is instantiated by means of a companion object
+ * themoviedb API key is passed as a parameter in the getCurrentDate method
+ * returns a call with array MovieResponse class
+ *
+ * @author juan.rendon
+ */
+
 interface ApiService {
     @GET("movie/popular?")
     fun getCurrentData(
@@ -21,4 +31,3 @@ interface ApiService {
                 .build().create(ApiService::class.java)
     }
 }
-

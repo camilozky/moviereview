@@ -5,7 +5,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.globant.moviereview.model.remote.MovieReview
-import java.util.*
+import java.util.ArrayList
+
+/**
+ * MovieDao
+ * facilitates access to stored data with the following methods
+ * insertMovies -> inserts a list of all movies
+ * insertMovie -> insert a movie
+ * getMovies -> consult a list of all the movies
+ * getMovieDetail -> consult a movie
+ *
+ * @author david.mazo
+ */
 
 @Dao
 interface MovieDao {

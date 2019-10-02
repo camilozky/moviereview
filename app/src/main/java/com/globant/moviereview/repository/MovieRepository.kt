@@ -12,6 +12,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.ArrayList
 
+/**
+ * MovieRepository
+ *
+ * The data source is managed by means of an isConnected boolean that is passed as a direct parameter in the getData method
+ * A class called ConnectivityChecker was created that asks the OS if it has access the internet
+ * An apiService variable of type ApiService is created and it is instantiated
+ * a getData method is created and asks if there is access to the internet performs a callback.enqueue through retrofit and populates the bd implemented with room
+ *
+ * @author juan.rendon
+ */
+
 class MovieRepository(private val responseInterface: ResponseInterface) {
 
     private val apiService: ApiService = ApiService.instance

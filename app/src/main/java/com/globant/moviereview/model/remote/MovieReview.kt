@@ -5,6 +5,20 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+/**
+ * MovieReview
+ *
+ * data class for the json that we get from themoviedb API in the field results
+ * The following constants were created
+ * VOTE_MAX
+ * RATING_MAX
+ * voteRule
+ *
+ * To have better maintenance when changing voteAverage
+ *
+ * @author juan.rendon
+ */
+
 @Entity(tableName = "movie")
 data class MovieReview(
         @PrimaryKey(autoGenerate = true)
@@ -38,5 +52,4 @@ data class MovieReview(
 
 const val VOTE_MAX = 10
 const val RATING_MAX = 5
-
 const val voteRule = VOTE_MAX / RATING_MAX
