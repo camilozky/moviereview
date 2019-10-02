@@ -1,8 +1,6 @@
 package com.globant.moviereview
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -18,16 +16,14 @@ import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
 import com.globant.moviereview.ui.CustomAdapter
 import com.globant.moviereview.ui.MovieReviewEvents
-import com.globant.moviereview.utils.ConnectivityChecker
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
-import java.util.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
-    private lateinit var connectivityChecker: ConnectivityChecker
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
@@ -48,10 +44,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
-        connectivityChecker =
-                ConnectivityChecker(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
         movieRepository = MovieRepository(this)
-        movieRepository.getData(connectivityChecker.isConnected)
+        movieRepository.getData(applicationContext)
         setRecyclerViewScrollListener()
     }
 
@@ -112,7 +106,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     private fun requestDataFromMovieRepository() {
         try {
-            movieRepository.getData(connectivityChecker.isConnected)
+            movieRepository.getData(applicationContext)
         } catch (e: IOException) {
             e.printStackTrace()
         }

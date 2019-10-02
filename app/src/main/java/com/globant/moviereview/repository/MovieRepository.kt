@@ -1,21 +1,23 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
+import android.net.ConnectivityManager
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.local.db.MovieDatabase
 import com.globant.moviereview.model.remote.MovieResponse
 import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.ArrayList
 
 class MovieRepository(private val responseInterface: ResponseInterface) {
 
     private val apiService: ApiService = ApiService.instance
 
-    fun getData(isConnected: Boolean) {
-        if (!isConnected) {
+    fun getData(context: Context) {
+        if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
             val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             getLocalDataResponse(ArrayList(listMovieReview))
@@ -32,6 +34,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                         getNetworkResponse(null)
                     }
                 }
+
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
