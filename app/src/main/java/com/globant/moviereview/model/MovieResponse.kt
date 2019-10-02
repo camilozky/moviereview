@@ -1,4 +1,4 @@
-package com.globant.moviereview.model.remote
+package com.globant.moviereview.model
 
 import com.google.gson.annotations.SerializedName
 

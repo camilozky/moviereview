@@ -5,9 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.globant.moviereview.model.local.db.MovieDatabase
-import com.globant.moviereview.model.remote.MovieReview
-import com.globant.moviereview.model.remote.voteRule
+import com.globant.moviereview.model.MovieDatabase
+import com.globant.moviereview.model.MovieReview
+import com.globant.moviereview.model.voteRule
 import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
 import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.ratingBar_average

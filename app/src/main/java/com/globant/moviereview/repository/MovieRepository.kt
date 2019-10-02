@@ -3,9 +3,9 @@ package com.globant.moviereview.repository
 import android.content.Context
 import android.net.ConnectivityManager
 import com.globant.moviereview.api.ApiService
-import com.globant.moviereview.model.local.db.MovieDatabase
-import com.globant.moviereview.model.remote.MovieResponse
-import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.model.MovieDatabase
+import com.globant.moviereview.model.MovieResponse
+import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback

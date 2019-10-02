@@ -1,6 +1,6 @@
 package com.globant.moviereview.ui
 
-import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.model.MovieReview
 
 /**
  * MovieReviewEvents

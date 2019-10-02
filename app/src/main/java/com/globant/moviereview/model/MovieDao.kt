@@ -1,10 +1,9 @@
-package com.globant.moviereview.model.local.dao
+package com.globant.moviereview.model
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.globant.moviereview.model.remote.MovieReview
 import java.util.ArrayList
 
 /**

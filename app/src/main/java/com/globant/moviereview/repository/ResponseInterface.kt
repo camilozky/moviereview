@@ -1,6 +1,6 @@
 package com.globant.moviereview.repository
 
-import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.model.MovieReview
 import java.util.ArrayList
 
 /**

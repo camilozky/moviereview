@@ -1,6 +1,6 @@
 package com.globant.moviereview.api
 
-import com.globant.moviereview.model.remote.MovieResponse
+import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.repository.MovieRepository
 import retrofit2.Call
 import retrofit2.Retrofit

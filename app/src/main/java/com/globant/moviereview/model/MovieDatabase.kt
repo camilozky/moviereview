@@ -1,11 +1,9 @@
-package com.globant.moviereview.model.local.db
+package com.globant.moviereview.model
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.globant.moviereview.model.local.dao.MovieDao
-import com.globant.moviereview.model.remote.MovieReview
 
 /**
  * MovieDatabase

@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.globant.moviereview.model.local.db.MovieDatabase
-import com.globant.moviereview.model.remote.MovieReview
+import com.globant.moviereview.model.MovieDatabase
+import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
 import com.globant.moviereview.ui.CustomAdapter
