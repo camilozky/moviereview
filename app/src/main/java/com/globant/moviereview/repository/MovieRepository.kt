@@ -2,6 +2,7 @@ package com.globant.moviereview.repository
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
@@ -10,7 +11,6 @@ import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 /**
  * MovieRepository
@@ -29,7 +29,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
     fun getData(context: Context) {
         if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            val movieDatabase = MovieDatabase.getDatabase(responseInterface as Context)
+            val movieDatabase = MovieDatabase.getDatabase(context)
             val listMovieReview = movieDatabase.getMovieDAO().getMovies()
             getLocalDataResponse(ArrayList(listMovieReview))
         } else {
@@ -42,7 +42,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                     if (response.code() == 200) {
                         getNetworkResponse(response)
                     } else {
-                        getNetworkResponse(null)
+                        Toast.makeText(context, "Cannot get movie list", Toast.LENGTH_LONG).show()
                     }
                 }
 
