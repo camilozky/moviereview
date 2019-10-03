@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
-import com.globant.moviereview.ui.MainActivity
+import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,29 +30,23 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
     fun getData(context: Context) {
         if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            if (MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isNotEmpty())
-                getMovieListFromMovieDatabase(context)
-            else Toast.makeText((responseInterface as MainActivity).applicationContext, "There is not movies", Toast.LENGTH_SHORT).show()
+            if (getMovieList(context).isNotEmpty())
+                responseInterface.getListMovies(getMovieList(context))
+            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         } else {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(
-                        call: Call<MovieResponse>,
-                        response: Response<MovieResponse>
-                ) {
-                    when {
-                        response.code() == 200 -> insertApiResponseOnMovieDatabase(response, context)
-                        MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isNotEmpty() -> getMovieListFromMovieDatabase(context)
-                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
-                    }
-                    getMovieListFromMovieDatabase(context)
-                    //TODO when with code error from json
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
-                        200, 201, 204 -> insertApiResponseOnMovieDatabase(response, context)
+                        200, 201, 204 -> {
+                            sendResult(response, context)
+                            if (getMovieList(context).isNotEmpty())
+                                responseInterface.getListMovies(getMovieList(context))
+                            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                        }
                         else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
@@ -60,14 +54,14 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         }
     }
 
-    private fun insertApiResponseOnMovieDatabase(response: Response<MovieResponse>?, context: Context) {
+    private fun sendResult(response: Response<MovieResponse>?, context: Context) {
         response?.body()?.let { movieResponse ->
             movieResponse.results?.forEach { movieReview -> MovieDatabase.getDatabase(context).getMovieDAO().insertMovie(movieReview) }
         }
     }
 
-    private fun getMovieListFromMovieDatabase(context: Context) {
-        responseInterface.getListMovies(ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies()))
+    private fun getMovieList(context: Context): ArrayList<MovieReview> {
+        return ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies())
     }
 
     companion object {
