@@ -36,10 +36,9 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         customAdapter = CustomAdapter(this)
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         gridLayoutManager = GridLayoutManager(this, 2)
-        staggeredGridLayoutManager =
-                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)

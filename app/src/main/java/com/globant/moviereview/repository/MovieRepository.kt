@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
+import com.globant.moviereview.ui.MainActivity
 import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,8 +30,9 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
     fun getData(context: Context) {
         if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            if (MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isEmpty()) getMovieListFromMovieDatabase(context)
-            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+            if (MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isNotEmpty())
+                getMovieListFromMovieDatabase(context)
+            else Toast.makeText((responseInterface as MainActivity).applicationContext, "There is not movies", Toast.LENGTH_SHORT).show()
         } else {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
@@ -41,6 +43,12 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                     when {
                         response.code() == 200 -> insertApiResponseOnMovieDatabase(response, context)
                         MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isNotEmpty() -> getMovieListFromMovieDatabase(context)
+                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                    }
+                    getMovieListFromMovieDatabase(context)
+                    //TODO when with code error from json
+                    when (response.code()) {
+                        200, 201, 204 -> insertApiResponseOnMovieDatabase(response, context)
                         else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -55,7 +63,6 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
     private fun insertApiResponseOnMovieDatabase(response: Response<MovieResponse>?, context: Context) {
         response?.body()?.let { movieResponse ->
             movieResponse.results?.forEach { movieReview -> MovieDatabase.getDatabase(context).getMovieDAO().insertMovie(movieReview) }
-            getMovieListFromMovieDatabase(context)
         }
     }
 
