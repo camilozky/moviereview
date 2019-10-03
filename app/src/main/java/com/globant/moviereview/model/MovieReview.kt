@@ -25,29 +25,29 @@ data class MovieReview(
         @ColumnInfo(name = "id")
         var id: Int = 0,
         @SerializedName("popularity")
-        val popularity: String? = null,
+        val popularity: String? = "",
         @SerializedName("voteCount")
-        val voteCount: String? = null,
+        val voteCount: String? = "",
         @SerializedName("video")
-        val video: String? = null,
+        val video: String? = "",
         @SerializedName("poster_path")
-        val posterPath: String? = null,
+        val posterPath: String? = "",
         @SerializedName("adult")
-        val adult: String? = null,
+        val adult: String? = "",
         @SerializedName("backdrop_path")
-        val backdropPath: String? = null,
+        val backdropPath: String? = "",
         @SerializedName("original_language")
-        val originalLanguage: String? = null,
+        val originalLanguage: String? = "",
         @SerializedName("original_title")
-        val originalTitle: String? = null,
+        val originalTitle: String? = "",
         @SerializedName("title")
-        val title: String? = null,
+        val title: String? = "",
         @SerializedName("vote_average")
-        val voteAverage: String? = null,
+        val voteAverage: String? = "",
         @SerializedName("overview")
-        val summary: String? = null,
+        val summary: String? = "",
         @SerializedName("release_date")
-        val releaseDate: String? = null
+        val releaseDate: String? = ""
 )
 
 const val VOTE_MAX = 10

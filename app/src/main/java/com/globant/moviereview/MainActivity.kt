@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     override fun onItemClicked(movieReview: MovieReview) {
         val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
-        intent.putExtra("id", movieReview.id)
+        intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
     }
 
@@ -116,5 +116,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         const val LINEAR_LAYOUT: Int = 1
         const val GRILL_LAYOUT: Int = 2
         const val STAGGERED_LAYOUT: Int = 3
+        const val ID_MOVIE: String = "idMovie"
     }
 }

@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.globant.moviereview.MainActivity.Companion.ID_MOVIE
 import com.globant.moviereview.model.MovieDatabase.Companion.getDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.voteRule
@@ -31,7 +32,7 @@ class DetailMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieReview = getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(intent.extras?.getInt("id"))
+        val movieReview = getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(intent.extras?.getInt(ID_MOVIE))
         inflateView(movieReview)
     }
 
