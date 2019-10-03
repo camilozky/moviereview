@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
-import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +29,8 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
     fun getData(context: Context) {
         if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            responseInterface.getListMovies(ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies()))
+            if (MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isEmpty()) getMovieListFromMovieDatabase(context)
+            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         } else {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
@@ -38,14 +38,10 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
                         call: Call<MovieResponse>,
                         response: Response<MovieResponse>
                 ) {
-                    if (response.code() == 200) {
-                        insertApiResponseOnMovieDatabase(response, context)
-                    } else {
-                        val cantRows: List<MovieReview> = MovieDatabase.getDatabase(context).getMovieDAO().getMovies()
-                        if (cantRows.isNotEmpty())
-                            getMovieListFromMovieDatabase(context)
-                        else
-                            Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                    when {
+                        response.code() == 200 -> insertApiResponseOnMovieDatabase(response, context)
+                        MovieDatabase.getDatabase(context).getMovieDAO().getMovies().isNotEmpty() -> getMovieListFromMovieDatabase(context)
+                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
 
