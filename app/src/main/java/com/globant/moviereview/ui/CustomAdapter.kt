@@ -44,6 +44,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bindItem(movieReview: MovieReview, listener: MovieReviewEvents?) {
+            val path = movieReview.posterPath.toString()
             Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                     .centerCrop()
