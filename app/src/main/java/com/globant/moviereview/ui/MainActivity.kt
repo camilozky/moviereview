@@ -1,4 +1,4 @@
-package com.globant.moviereview
+package com.globant.moviereview.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
-import com.globant.moviereview.ui.CustomAdapter
-import com.globant.moviereview.ui.MovieReviewEvents
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.util.ArrayList
 

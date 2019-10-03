@@ -1,14 +1,15 @@
-package com.globant.moviereview
+package com.globant.moviereview.ui
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.globant.moviereview.MainActivity.Companion.ID_MOVIE
+import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieDatabase.Companion.getDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.voteRule
+import com.globant.moviereview.ui.MainActivity.Companion.ID_MOVIE
 import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
 import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.ratingBar_average
