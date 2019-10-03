@@ -10,16 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
 import com.globant.moviereview.ui.CustomAdapter
 import com.globant.moviereview.ui.MovieReviewEvents
 import kotlinx.android.synthetic.main.activity_main.recyclerView
-import java.io.IOException
 import java.util.ArrayList
-
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
@@ -36,7 +33,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
             gridLayoutManager.findLastVisibleItemPosition()
         }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,11 +48,9 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         setRecyclerViewScrollListener()
     }
 
-    override fun getResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
+    override fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?) {
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
-            val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            it.forEach { movieReview -> movieDatabase.getMovieDAO().insertMovie(movieReview) }
         }
     }
 
@@ -98,18 +92,14 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
                 super.onScrollStateChanged(recyclerView, newState)
                 val totalItemCount = recyclerView.layoutManager?.itemCount
                 if (totalItemCount == lastVisibleItemPosition + 1) {
-                    requestDataFromMovieRepository()
+                    onRecyclerViewScroll()
                 }
             }
         })
     }
 
-    private fun requestDataFromMovieRepository() {
-        try {
-            movieRepository.getData(applicationContext)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+    private fun onRecyclerViewScroll() {
+        movieRepository.getData(applicationContext)
     }
 
     companion object {

@@ -12,5 +12,5 @@ import java.util.ArrayList
  */
 
 interface ResponseInterface {
-    fun getResponse(arrayListMovieReview: ArrayList<MovieReview>?)
+    fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?)
 }
