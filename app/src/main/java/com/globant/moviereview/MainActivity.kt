@@ -55,9 +55,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
-            for (singleMovie in arrayListMovieReview) {
-                movieDatabase.getMovieDAO().insertMovie(singleMovie)
-            }
+            it.forEach { movieReview -> movieDatabase.getMovieDAO().insertMovie(movieReview) }
         }
     }
 
