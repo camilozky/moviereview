@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.io.IOException
 import java.util.ArrayList
 
+
 class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         setRecyclerViewScrollListener()
     }
 
-    override fun sendResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
+    override fun getResponse(arrayListMovieReview: ArrayList<MovieReview>?) {
         arrayListMovieReview?.let {
             customAdapter.addAll(it)
             val movieDatabase = MovieDatabase.getDatabase(this@MainActivity)
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     override fun onItemClicked(movieReview: MovieReview) {
         val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
-        intent.putExtra(ID_MOVIE, movieReview.id)
+        intent.putExtra("id", movieReview.id)
         startActivity(intent)
     }
 
@@ -115,6 +116,5 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         const val LINEAR_LAYOUT: Int = 1
         const val GRILL_LAYOUT: Int = 2
         const val STAGGERED_LAYOUT: Int = 3
-        const val ID_MOVIE: String = "idMovie"
     }
 }

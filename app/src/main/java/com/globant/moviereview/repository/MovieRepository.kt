@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
-import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.ConnectivityChecker
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,9 +29,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
 
     fun getData(context: Context) {
         if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            val movieDatabase = MovieDatabase.getDatabase(context)
-            val listMovieReview = movieDatabase.getMovieDAO().getMovies()
-            getLocalDataResponse(ArrayList(listMovieReview))
+            responseInterface.getResponse(ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies()))
         } else {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
@@ -55,13 +52,9 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
     }
 
     private fun getNetworkResponse(response: Response<MovieResponse>?) {
-        response?.body()?.let { response ->
-            responseInterface.sendResponse(response.results)
+        response?.body()?.let { movieResponse ->
+            responseInterface.getResponse(movieResponse.results)
         }
-    }
-
-    private fun getLocalDataResponse(response: ArrayList<MovieReview>?) {
-        responseInterface.sendResponse(response)
     }
 
     companion object {
