@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.globant.moviereview.MainActivity.Companion.ID_MOVIE
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.voteRule
@@ -16,6 +17,11 @@ import kotlinx.android.synthetic.main.detail_item.textView_movie_title
 import kotlinx.android.synthetic.main.detail_item.textView_summary
 import kotlinx.android.synthetic.main.detail_item.textView_title_original
 import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 /**
  * DetailMovieActivity
@@ -31,9 +37,7 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(R.layout.detail_item)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        var strUser: String? = intent.getStringExtra("idMovie")
-        val movieDatabase = MovieDatabase.getDatabase(this@DetailMovieActivity)
-        val movieReview: MovieReview? = strUser?.toInt().let { movieDatabase.getMovieDAO().getMovieDetail(it) }
+        val movieReview: MovieReview? = intent.extras?.getInt(ID_MOVIE)?.let {  MovieDatabase.getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(it) }
         movieReview?.let { inflateView(it) }
     }
 

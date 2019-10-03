@@ -21,6 +21,7 @@ import java.io.IOException
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
+
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         } else {
             gridLayoutManager.findLastVisibleItemPosition()
         }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,9 +88,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
     }
 
     override fun onItemClicked(movieReview: MovieReview) {
-        val value: String = movieReview.id.toString()
         val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
-        intent.putExtra("idMovie", value)
+        intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
     }
 
@@ -116,5 +117,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         const val LINEAR_LAYOUT: Int = 1
         const val GRILL_LAYOUT: Int = 2
         const val STAGGERED_LAYOUT: Int = 3
+        const val ID_MOVIE: String = "idMovie"
     }
 }
