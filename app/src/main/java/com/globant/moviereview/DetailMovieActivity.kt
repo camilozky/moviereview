@@ -17,10 +17,6 @@ import kotlinx.android.synthetic.main.detail_item.textView_movie_title
 import kotlinx.android.synthetic.main.detail_item.textView_summary
 import kotlinx.android.synthetic.main.detail_item.textView_title_original
 import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 /**
@@ -35,9 +31,9 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieReview: MovieReview? = intent.extras?.getInt(ID_MOVIE)?.let {  MovieDatabase.getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(it) }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val movieReview: MovieReview? =
+                intent.extras?.getInt(ID_MOVIE)?.let { MovieDatabase.getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(it) }
         movieReview?.let { inflateView(it) }
     }
 
