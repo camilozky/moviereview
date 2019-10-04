@@ -25,16 +25,16 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
-    private val lastVisibleItemPosition: Int
-        get() = if (recyclerView.layoutManager == linearLayoutManager) {
-            linearLayoutManager.findLastVisibleItemPosition()
-        } else {
-            gridLayoutManager.findLastVisibleItemPosition()
-        }
+    private val lastVisibleItemPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initializeVariables()
+        setRecyclerViewScrollListener()
+    }
+
+    private fun initializeVariables() {
         customAdapter = CustomAdapter(this)
         gridLayoutManager = GridLayoutManager(this, 2)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -43,13 +43,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
         movieRepository.getData(applicationContext)
-        setRecyclerViewScrollListener()
     }
 
     override fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?) {
-        arrayListMovieReview?.let {
-            customAdapter.addAll(it)
-        }
+        customAdapter.addAll(arrayListMovieReview)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,5 +102,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         const val GRILL_LAYOUT: Int = 2
         const val STAGGERED_LAYOUT: Int = 3
         const val ID_MOVIE: String = "idMovie"
+        const val VOTE_MAX = 10
+        const val RATING_MAX = 5
     }
 }
