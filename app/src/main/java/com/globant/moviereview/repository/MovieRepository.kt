@@ -8,6 +8,7 @@ import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.ConnectivityChecker
+import com.globant.moviereview.utils.Constants.Companion.APIKEY
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,8 +65,4 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         return ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies())
     }
 
-    companion object {
-        var BASEURL = "https://api.themoviedb.org/3/"
-        var APIKEY = "99ac1d44af506e889c0cb61a2ef3fa22"
-    }
 }

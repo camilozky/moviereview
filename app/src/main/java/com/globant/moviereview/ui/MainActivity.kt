@@ -14,6 +14,11 @@ import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
+import com.globant.moviereview.utils.Constants.Companion.GRILL_LAYOUT
+import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
+import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
+import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
+import com.globant.moviereview.utils.MovieReviewEvents
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.util.ArrayList
 
@@ -25,16 +30,16 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
-    private val lastVisibleItemPosition: Int
-        get() = if (recyclerView.layoutManager == linearLayoutManager) {
-            linearLayoutManager.findLastVisibleItemPosition()
-        } else {
-            gridLayoutManager.findLastVisibleItemPosition()
-        }
+    private val lastVisibleItemPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initializeVariables()
+        setRecyclerViewScrollListener()
+    }
+
+    private fun initializeVariables() {
         customAdapter = CustomAdapter(this)
         gridLayoutManager = GridLayoutManager(this, 2)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -43,13 +48,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
         movieRepository.getData(applicationContext)
-        setRecyclerViewScrollListener()
     }
 
     override fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?) {
-        arrayListMovieReview?.let {
-            customAdapter.addAll(it)
-        }
+        customAdapter.addAll(arrayListMovieReview)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,12 +100,5 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     private fun onRecyclerViewScroll() {
         movieRepository.getData(applicationContext)
-    }
-
-    companion object {
-        const val LINEAR_LAYOUT: Int = 1
-        const val GRILL_LAYOUT: Int = 2
-        const val STAGGERED_LAYOUT: Int = 3
-        const val ID_MOVIE: String = "idMovie"
     }
 }

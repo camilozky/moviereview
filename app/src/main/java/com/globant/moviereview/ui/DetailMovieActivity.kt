@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieDatabase.Companion.getDatabase
 import com.globant.moviereview.model.MovieReview
-import com.globant.moviereview.model.voteRule
-import com.globant.moviereview.ui.MainActivity.Companion.ID_MOVIE
+import com.globant.moviereview.model.returnFactorMovieRating
+import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
 import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.ratingBar_average
@@ -40,7 +40,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun inflateView(movieReview: MovieReview) {
         textView_movie_title.text = movieReview.title
         textView_title_original.text = movieReview.originalTitle
-        with((movieReview.voteAverage?.toFloat() ?: 0f) / voteRule) {
+        with(movieReview.voteAverage.toFloat() / returnFactorMovieRating()) {
             ratingBar_average.rating = this
             textView_average.text = this.toString()
         }

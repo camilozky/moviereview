@@ -3,6 +3,8 @@ package com.globant.moviereview.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.globant.moviereview.utils.Constants.Companion.RATING_MAX
+import com.globant.moviereview.utils.Constants.Companion.VOTE_MAX
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -50,6 +52,6 @@ data class MovieReview(
         val releaseDate: String = ""
 )
 
-const val VOTE_MAX = 10
-const val RATING_MAX = 5
-const val voteRule = VOTE_MAX / RATING_MAX
+fun returnFactorMovieRating(): Int {
+    return VOTE_MAX / RATING_MAX
+}
