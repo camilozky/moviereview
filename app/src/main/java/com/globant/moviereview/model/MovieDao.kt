@@ -20,9 +20,6 @@ import java.util.ArrayList
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movie: ArrayList<MovieReview>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: MovieReview)
 
     @Query("SELECT * from movie")
