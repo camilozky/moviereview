@@ -51,6 +51,6 @@ data class MovieReview(
         val releaseDate: String = ""
 )
 
-fun convertMovieRating(): Int {
+fun returnFactorMovieRating(): Int {
     return MainActivity.VOTE_MAX / MainActivity.RATING_MAX
 }
