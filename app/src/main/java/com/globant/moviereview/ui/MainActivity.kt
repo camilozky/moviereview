@@ -14,6 +14,10 @@ import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
 import com.globant.moviereview.repository.ResponseInterface
+import com.globant.moviereview.utils.Constants.Companion.GRILL_LAYOUT
+import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
+import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
+import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import java.util.ArrayList
 
@@ -95,14 +99,5 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
     private fun onRecyclerViewScroll() {
         movieRepository.getData(applicationContext)
-    }
-
-    companion object {
-        const val LINEAR_LAYOUT: Int = 1
-        const val GRILL_LAYOUT: Int = 2
-        const val STAGGERED_LAYOUT: Int = 3
-        const val ID_MOVIE: String = "idMovie"
-        const val VOTE_MAX = 10
-        const val RATING_MAX = 5
     }
 }
