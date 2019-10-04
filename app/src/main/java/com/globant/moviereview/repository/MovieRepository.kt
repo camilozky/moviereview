@@ -30,7 +30,7 @@ class MovieRepository(private val context: Context) {
     private val apiService: ApiService = ApiService.instance
     private val movieDao: MovieDao = MovieDatabase.getDatabase(context).getMovieDAO()
 
-    fun getData() {
+    fun getData(): ArrayList<MovieReview> {
 
         var moviesDB = movieDao.getMovies() as ArrayList //TODO: change return type to ArrayList
 
@@ -68,6 +68,7 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         }
+        return movieDao.getMovies() as ArrayList
     }
 
     fun getDBMovieList(): ArrayList<MovieReview> {
