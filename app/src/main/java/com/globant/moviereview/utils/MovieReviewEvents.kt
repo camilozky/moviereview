@@ -1,4 +1,4 @@
-package com.globant.moviereview.ui
+package com.globant.moviereview.utils
 
 import com.globant.moviereview.model.MovieReview
 

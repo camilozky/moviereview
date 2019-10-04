@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.returnFactorMovieRating
+import com.globant.moviereview.utils.MovieReviewEvents
 import kotlinx.android.synthetic.main.list_item.view.movieImage
 import kotlinx.android.synthetic.main.list_item.view.original_title
 import kotlinx.android.synthetic.main.list_item.view.ratingBar
