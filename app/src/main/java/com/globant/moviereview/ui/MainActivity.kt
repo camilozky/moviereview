@@ -19,8 +19,8 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
 
@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
-        movieRepository.getData(applicationContext)
+        movieRepository.getData()
+        customAdapter.addAll(movieRepository.getDBMovieList())
     }
 
     override fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?) {
@@ -99,6 +100,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents, ResponseInterface {
     }
 
     private fun onRecyclerViewScroll() {
-        movieRepository.getData(applicationContext)
+        movieRepository.getData()
     }
 }

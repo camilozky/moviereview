@@ -1,7 +1,7 @@
 package com.globant.moviereview.repository
 
 import com.globant.moviereview.model.MovieReview
-import java.util.ArrayList
+import java.util.*
 
 /**
  * ResponseInterface
@@ -10,7 +10,7 @@ import java.util.ArrayList
  *
  * @author juan.rendon
  */
-
+//TODO maybe deleted this class with arguments
 interface ResponseInterface {
     fun getListMovies(arrayListMovieReview: ArrayList<MovieReview>?)
 }

@@ -1,14 +1,14 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
-import android.net.ConnectivityManager
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
+import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
-import com.globant.moviereview.utils.ConnectivityChecker
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
+import com.globant.moviereview.utils.hasConnection
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,29 +25,40 @@ import retrofit2.Response
  * @author juan.rendon
  */
 
-class MovieRepository(private val responseInterface: ResponseInterface) {
+class MovieRepository(private val context: Context) {
 
     private val apiService: ApiService = ApiService.instance
+    private val movieDao: MovieDao = MovieDatabase.getDatabase(context).getMovieDAO()
 
-    fun getData(context: Context) {
-        if (!ConnectivityChecker(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).isConnected) {
-            if (getMovieList(context).isNotEmpty())
-                responseInterface.getListMovies(getMovieList(context))
-            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+    fun getData() {
+
+        var moviesDB = movieDao.getMovies() as ArrayList //TODO: change return type to ArrayList
+
+        if (!context.hasConnection()) {
+            if (moviesDB.isNotEmpty()) {
+                sendResponse(moviesDB)
+            } else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         } else {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            sendResult(response, context)
-                            if (getMovieList(context).isNotEmpty())
-                                responseInterface.getListMovies(getMovieList(context))
-                            else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                            if (moviesDB.isNotEmpty()) {
+                                //TODO: create the delete option within DAO
+                            }
+                            insertIntoDB(response)
+                            moviesDB = movieDao.getMovies() as ArrayList
+                            sendResponse(moviesDB)
                         }
+                        //TODO: Ask info to database
+                        //TODO:
+                        //TODO: delete class connectivity checker
+                        //
                         else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
@@ -55,14 +66,20 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
         }
     }
 
-    private fun sendResult(response: Response<MovieResponse>?, context: Context) {
-        response?.body()?.let { movieResponse ->
-            movieResponse.results?.forEach { movieReview -> MovieDatabase.getDatabase(context).getMovieDAO().insertMovie(movieReview) }
+    fun getDBMovieList(): ArrayList<MovieReview> {
+        return movieDao.getMovies() as ArrayList<MovieReview>
+    }
+
+    private fun sendResponse(moviesDB: ArrayList<MovieReview>) {
+        (context as ResponseInterface).apply {
+            //TODO delete null
+            getListMovies(moviesDB)
         }
     }
 
-    private fun getMovieList(context: Context): ArrayList<MovieReview> {
-        return ArrayList(MovieDatabase.getDatabase(context).getMovieDAO().getMovies())
+    private fun insertIntoDB(response: Response<MovieResponse>) {
+        response.body()?.let { movieResponse ->
+            movieResponse.results.forEach { movieReview -> movieDao.insertMovie(movieReview) }
+        }
     }
-
 }
