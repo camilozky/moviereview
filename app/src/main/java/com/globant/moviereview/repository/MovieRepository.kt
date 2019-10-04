@@ -34,14 +34,13 @@ class MovieRepository(private val context: Context) {
 
         var moviesDB = movieDao.getMovies() as ArrayList //TODO: change return type to ArrayList
 
-        if (!context.hasConnection()) {
-            if (moviesDB.isNotEmpty()) {
-                sendResponse(moviesDB)
-            } else Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
-        } else {
+        if (context.hasConnection()) {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                override fun onResponse(
+                    call: Call<MovieResponse>,
+                    response: Response<MovieResponse>
+                ) {
                     when (response.code()) {
                         200 -> {
                             if (moviesDB.isNotEmpty()) {
@@ -49,13 +48,16 @@ class MovieRepository(private val context: Context) {
                             }
                             insertIntoDB(response)
                             moviesDB = movieDao.getMovies() as ArrayList
-                            sendResponse(moviesDB)
                         }
                         //TODO: Ask info to database
                         //TODO:
                         //TODO: delete class connectivity checker
                         //
-                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                        else -> Toast.makeText(
+                            context,
+                            "There is not movies",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
@@ -63,18 +65,13 @@ class MovieRepository(private val context: Context) {
                     t.printStackTrace()
                 }
             })
+        } else {
+            Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun getDBMovieList(): ArrayList<MovieReview> {
         return movieDao.getMovies() as ArrayList<MovieReview>
-    }
-
-    private fun sendResponse(moviesDB: ArrayList<MovieReview>) {
-        (context as ResponseInterface).apply {
-            //TODO delete null
-            getListMovies(moviesDB)
-        }
     }
 
     private fun insertIntoDB(response: Response<MovieResponse>) {
