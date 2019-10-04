@@ -38,7 +38,7 @@ class MovieRepository(private val responseInterface: ResponseInterface) {
             call.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
-                        200, 201, 204 -> {
+                        200 -> {
                             sendResult(response, context)
                             if (getMovieList(context).isNotEmpty())
                                 responseInterface.getListMovies(getMovieList(context))
