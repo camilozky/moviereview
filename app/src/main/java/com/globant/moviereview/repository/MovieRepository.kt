@@ -32,7 +32,7 @@ class MovieRepository(private val context: Context) {
 
     fun getData(): List<MovieReview> {
 
-        var moviesDB = movieDao.getMovies() //TODO: change return type to ArrayList
+        var moviesDB = movieDao.getMovies()
 
         if (context.hasConnection()) {
             val call = apiService.getCurrentData(APIKEY)
