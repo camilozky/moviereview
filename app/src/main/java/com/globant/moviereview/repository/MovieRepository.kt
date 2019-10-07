@@ -37,19 +37,18 @@ class MovieRepository {
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getDatabase(context).getMovieDAO()
 
-    fun getData(): List<MovieReview> {
+    fun getData() {
         if (context.hasConnection()) {
             val callMovieResponse = apiService.getCurrentData(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
-                    when (response.code()) {
-                        200 -> {
-                            if (getListMovieDatabase().isNotEmpty()) {
-                                deleteListMovieDatabase()
-                            }
+                    if (response.code() == 200) {
+                        if (getListMovieDatabase().isNotEmpty()) {
+                            deleteListMovieDatabase()
                             insertMovieDatabase(response)
                         }
-                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "There are not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -59,7 +58,6 @@ class MovieRepository {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
-        return getListMovieDatabase()
     }
 
     fun getListMovieDatabase(): List<MovieReview> {
