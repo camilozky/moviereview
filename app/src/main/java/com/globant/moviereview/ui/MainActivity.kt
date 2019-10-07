@@ -19,7 +19,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -45,12 +45,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
-        customAdapter.addAll(MovieRepository(this@MainActivity).getListMovieDatabase())
-    }
-
-    override fun onResume() {
-        super.onResume()
-        MovieRepository(this@MainActivity).getData()
+        val response: List<MovieReview> = movieRepository.getData()
+        customAdapter.addAll(response)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
