@@ -9,6 +9,7 @@ import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieDatabase.Companion.getDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
+import com.globant.moviereview.utils.returnFactorMovieRating
 import kotlinx.android.synthetic.main.detail_item.imageView_movie_picture
 import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.ratingBar_average

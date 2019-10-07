@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeVariables()
-        setRecyclerViewScrollListener()
+        onRecyclerViewScroll()
     }
 
     private fun initializeVariables() {
@@ -81,19 +81,16 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         startActivity(intent)
     }
 
-    private fun setRecyclerViewScrollListener() {
+    private fun onRecyclerViewScroll() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val totalItemCount = recyclerView.layoutManager?.itemCount
                 if (totalItemCount == lastVisibleItemPosition + 1) {
-                    onRecyclerViewScroll()
+                    movieRepository.getData()
+
                 }
             }
         })
-    }
-
-    private fun onRecyclerViewScroll() {
-        movieRepository.getData()
     }
 }
