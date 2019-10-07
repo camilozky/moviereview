@@ -21,36 +21,29 @@ import kotlinx.android.synthetic.main.list_item.view.ratingBar
  * @author david.mazo
  */
 
-class CustomAdapter(private val listener: MovieReviewEvents) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    private var movieReviewList: List<MovieReview> = listOf()
+    private var listMovieReview: List<MovieReview> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.list_item,
-                        parent,
-                        false
-                )
-        )
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return movieReviewList.size
+        return listMovieReview.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(movieReviewList[position], listener)
+        holder.bindItem(listMovieReview[position], listener)
     }
 
     fun addAll(listMovieReview: List<MovieReview>) {
-        movieReviewList = listMovieReview
+        this.listMovieReview = listMovieReview
         notifyDataSetChanged()
     }
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bindItem(movieReview: MovieReview, listener: MovieReviewEvents?) {
+        fun bindItem(movieReview: MovieReview, listener: MovieReviewEvents) {
             Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                     .centerCrop()
@@ -59,9 +52,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
                     .into(itemView.movieImage)
             itemView.original_title.text = movieReview.originalTitle
             itemView.ratingBar.rating = movieReview.voteAverage.toFloat() / returnFactorMovieRating()
-            view.setOnClickListener {
-                listener?.onItemClicked(movieReview)
-            }
+            view.setOnClickListener { listener.onItemClicked(movieReview) }
         }
     }
 }

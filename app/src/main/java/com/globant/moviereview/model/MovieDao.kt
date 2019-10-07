@@ -21,12 +21,12 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: MovieReview)
 
-    @Query("DELETE from movies")
-    fun deleteMovies()
-
     @Query("SELECT * from movies")
     fun getMovies(): List<MovieReview>
 
     @Query("SELECT * FROM movies WHERE movies.id=:id")
     fun getMovieDetail(id: Int): MovieReview
+
+    @Query("DELETE from movies")
+    fun deleteMovies()
 }

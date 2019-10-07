@@ -3,7 +3,6 @@ package com.globant.moviereview.repository
 import android.content.Context
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
-import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
@@ -27,20 +26,20 @@ import retrofit2.Response
 
 class MovieRepository(private val context: Context) {
 
-    private val apiService: ApiService = ApiService.instance
-    private val movieDao: MovieDao = MovieDatabase.getDatabase(context).getMovieDAO()
+    private val apiService = ApiService.instance
+    private val movieDatabase = MovieDatabase.getDatabase(context).getMovieDAO()
 
     fun getData(): List<MovieReview> {
 
-        val moviesDB = movieDao.getMovies()
+        val listMovieReview = movieDatabase.getMovies()
 
         if (context.hasConnection()) {
-            val call = apiService.getCurrentData(APIKEY)
-            call.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+            val callMovieResponse = apiService.getCurrentData(APIKEY)
+            callMovieResponse.enqueue(object : Callback<MovieResponse> {
+                override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            if (moviesDB.isNotEmpty()) {
+                            if (listMovieReview.isNotEmpty()) {
                                 deleteListMovieDatabase()
                             }
                             insertMovieDatabase(response)
@@ -55,16 +54,16 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
-        return movieDao.getMovies()
+        return movieDatabase.getMovies()
     }
 
     fun deleteListMovieDatabase() {
-        return movieDao.deleteMovies()
+        return movieDatabase.deleteMovies()
     }
 
     fun insertMovieDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
-            movieResponse.results.forEach { movieReview -> movieDao.insertMovie(movieReview) }
+            movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
     }
 }

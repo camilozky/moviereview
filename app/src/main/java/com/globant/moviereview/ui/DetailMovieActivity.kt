@@ -33,17 +33,17 @@ class DetailMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieReview = intent.extras?.getInt(ID_MOVIE)?.let { getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(it) }
-        movieReview?.let { inflateView(it) }
+        intent.extras?.let { bundle ->
+            val movieReview = bundle.getInt(ID_MOVIE).let { id ->
+                getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(id)
+            }
+            inflateView(movieReview)
+        }
     }
 
     private fun inflateView(movieReview: MovieReview) {
         textView_movie_title.text = movieReview.title
         textView_title_original.text = movieReview.originalTitle
-        with(movieReview.voteAverage.toFloat() / returnFactorMovieRating()) {
-            ratingBar_average.rating = this
-            textView_average.text = this.toString()
-        }
         textView_title_release_date.text = movieReview.releaseDate
         textView_summary.text = movieReview.summary
         Glide.with(imageView_movie_picture)
@@ -58,6 +58,10 @@ class DetailMovieActivity : AppCompatActivity() {
                 .fitCenter()
                 .override(1000, 1000)
                 .into(image_view_ic_star)
+        with(movieReview.voteAverage.toFloat() / returnFactorMovieRating()) {
+            ratingBar_average.rating = this
+            textView_average.text = this.toString()
+        }
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
