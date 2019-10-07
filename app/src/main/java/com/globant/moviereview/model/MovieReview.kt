@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName
  * @author juan.rendon
  */
 
-@Entity(tableName = "movie")
+@Entity(tableName = "movies")
 data class MovieReview(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")

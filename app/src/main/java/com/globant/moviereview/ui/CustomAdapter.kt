@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.list_item.view.ratingBar
 class CustomAdapter(private val listener: MovieReviewEvents) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    private val movieReviewList: ArrayList<MovieReview> = arrayListOf()
+    private var movieReviewList: List<MovieReview> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -45,7 +45,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
     }
 
     fun addAll(listMovieReview: List<MovieReview>) {
-        movieReviewList.addAll(listMovieReview)
+        movieReviewList = listMovieReview
         notifyDataSetChanged()
     }
 
@@ -64,7 +64,6 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
             }
         }
     }
-
 }
 
 fun returnFactorMovieRating(): Int {

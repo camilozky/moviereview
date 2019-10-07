@@ -45,6 +45,7 @@ class MovieRepository(private val context: Context) {
                         200 -> {
                             if (moviesDB.isNotEmpty()) {
                                 //TODO: create the delete option within DAO
+//                                moviesDB= movieDao.deleteMovies()
                             }
                             insertIntoDB(response)
                             moviesDB = movieDao.getMovies()
