@@ -32,7 +32,7 @@ class MovieRepository(private val context: Context) {
 
     fun getData(): List<MovieReview> {
 
-        var moviesDB = movieDao.getMovies()
+        val moviesDB = movieDao.getMovies()
 
         if (context.hasConnection()) {
             val call = apiService.getCurrentData(APIKEY)
@@ -53,7 +53,7 @@ class MovieRepository(private val context: Context) {
                 }
             })
         } else {
-            Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
         return movieDao.getMovies()
     }

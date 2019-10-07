@@ -15,7 +15,3 @@ fun Context.hasConnection(): Boolean {
     return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
             ?: false
 }
-
-fun getFactorMovieRating(): Int {
-    return Constants.VOTE_MAX / Constants.RATING_MAX
-}
