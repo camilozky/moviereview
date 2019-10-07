@@ -45,8 +45,12 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
-        val response: List<MovieReview> = movieRepository.getData()
-        customAdapter.addAll(response)
+        customAdapter.addAll(MovieRepository(this@MainActivity).getListMovieDatabase())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MovieRepository(this@MainActivity).getData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
