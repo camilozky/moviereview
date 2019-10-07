@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                customAdapter.addAll(movieRepository.getData())
+                customAdapter.addAll(MovieRepository(this@MainActivity).getListMovieDatabase())
             }
         })
     }

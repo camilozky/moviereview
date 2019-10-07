@@ -7,6 +7,7 @@ import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
+import com.globant.moviereview.ui.MainActivity
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
 import com.globant.moviereview.utils.hasConnection
 import retrofit2.Call
@@ -30,23 +31,20 @@ class MovieRepository {
     private var context: Context
     private val apiService = ApiService.instance
 
-    constructor(context: Context) {
+    constructor(context: MainActivity) {
         this.context = context
     }
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getDatabase(context).getMovieDAO()
 
     fun getData(): List<MovieReview> {
-
-        val listMovieReview = movieDatabase.getMovies()
-
         if (context.hasConnection()) {
             val callMovieResponse = apiService.getCurrentData(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            if (listMovieReview.isNotEmpty()) {
+                            if (getListMovieDatabase().isNotEmpty()) {
                                 deleteListMovieDatabase()
                             }
                             insertMovieDatabase(response)
@@ -61,6 +59,10 @@ class MovieRepository {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
+        return getListMovieDatabase()
+    }
+
+    fun getListMovieDatabase(): List<MovieReview> {
         return movieDatabase.getMovies()
     }
 
