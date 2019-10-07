@@ -44,8 +44,8 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
         holder.bindItem(movieReviewList[position], listener)
     }
 
-    fun addAll(arrayListMovieReview: ArrayList<MovieReview>?) {
-        arrayListMovieReview?.let { movieReviewList.addAll(it) }
+    fun addAll(listMovieReview: List<MovieReview>) {
+        movieReviewList.addAll(listMovieReview)
         notifyDataSetChanged()
     }
 

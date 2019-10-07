@@ -13,7 +13,7 @@ import retrofit2.http.Query
  * provide accessor implementations themoviedb
  * retrofit service is instantiated by means of a companion object
  * themoviedb API key is passed as a parameter in the getCurrentDate method
- * returns a call with array MovieResponse class
+ * returns a call with list MovieResponse class
  *
  * @author juan.rendon
  */

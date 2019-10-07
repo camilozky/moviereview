@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
-        val response: ArrayList<MovieReview> = movieRepository.getData()
+        val response: List<MovieReview> = movieRepository.getData()
         customAdapter.addAll(response)
     }
 

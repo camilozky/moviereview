@@ -30,9 +30,9 @@ class MovieRepository(private val context: Context) {
     private val apiService: ApiService = ApiService.instance
     private val movieDao: MovieDao = MovieDatabase.getDatabase(context).getMovieDAO()
 
-    fun getData(): ArrayList<MovieReview> {
+    fun getData(): List<MovieReview> {
 
-        var moviesDB = movieDao.getMovies() as ArrayList //TODO: change return type to ArrayList
+        var moviesDB = movieDao.getMovies() //TODO: change return type to ArrayList
 
         if (context.hasConnection()) {
             val call = apiService.getCurrentData(APIKEY)
@@ -47,7 +47,7 @@ class MovieRepository(private val context: Context) {
                                 //TODO: create the delete option within DAO
                             }
                             insertIntoDB(response)
-                            moviesDB = movieDao.getMovies() as ArrayList
+                            moviesDB = movieDao.getMovies()
                         }
                         //TODO: Ask info to database
                         //TODO:
@@ -68,11 +68,11 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         }
-        return movieDao.getMovies() as ArrayList
+        return movieDao.getMovies()
     }
 
-    fun getDBMovieList(): ArrayList<MovieReview> {
-        return movieDao.getMovies() as ArrayList<MovieReview>
+    fun getDBMovieList(): List<MovieReview> {
+        return movieDao.getMovies()
     }
 
     private fun insertIntoDB(response: Response<MovieResponse>) {
