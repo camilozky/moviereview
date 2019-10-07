@@ -3,6 +3,7 @@ package com.globant.moviereview.repository
 import android.content.Context
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
+import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
@@ -24,10 +25,16 @@ import retrofit2.Response
  * @author juan.rendon
  */
 
-class MovieRepository(private val context: Context) {
+class MovieRepository {
 
+    private var context: Context
     private val apiService = ApiService.instance
-    private val movieDatabase = MovieDatabase.getDatabase(context).getMovieDAO()
+
+    constructor(context: Context) {
+        this.context = context
+    }
+
+    private val movieDatabase: MovieDao get() = MovieDatabase.getDatabase(context).getMovieDAO()
 
     fun getData(): List<MovieReview> {
 
