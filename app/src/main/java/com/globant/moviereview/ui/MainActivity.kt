@@ -1,5 +1,6 @@
 package com.globant.moviereview.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -87,5 +88,11 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
                 customAdapter.addAll(movieRepository.getData())
             }
         })
+    }
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
     }
 }
