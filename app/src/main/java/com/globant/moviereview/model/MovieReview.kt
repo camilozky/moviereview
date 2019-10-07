@@ -18,6 +18,7 @@ data class MovieReview(
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int,
         @SerializedName("popularity") val popularity: String = "",
         @SerializedName("video") val video: String = "",
+        @SerializedName("voteCount") val voteCount: Float,
         @SerializedName("poster_path") val posterPath: String = "",
         @SerializedName("adult") val adult: String = "",
         @SerializedName("backdrop_path") val backdropPath: String = "",
