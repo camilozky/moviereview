@@ -37,27 +37,20 @@ class MovieRepository(private val context: Context) {
         if (context.hasConnection()) {
             val call = apiService.getCurrentData(APIKEY)
             call.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(
-                    call: Call<MovieResponse>,
-                    response: Response<MovieResponse>
-                ) {
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
                             if (moviesDB.isNotEmpty()) {
-                                //TODO: create the delete option within DAO
-//                                moviesDB= movieDao.deleteMovies()
+                                deleteListMovieDatabase()
                             }
-                            insertIntoDB(response)
-                            moviesDB = movieDao.getMovies()
+                            insertMovieDatabase(response)
+                            getListMovieDatabase()
                         }
                         //TODO: Ask info to database
-                        //TODO:
-                        //TODO: delete class connectivity checker
-                        //
                         else -> Toast.makeText(
-                            context,
-                            "There is not movies",
-                            Toast.LENGTH_SHORT
+                                context,
+                                "There is not movies",
+                                Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -72,11 +65,15 @@ class MovieRepository(private val context: Context) {
         return movieDao.getMovies()
     }
 
-    fun getDBMovieList(): List<MovieReview> {
+    fun getListMovieDatabase(): List<MovieReview> {
         return movieDao.getMovies()
     }
 
-    private fun insertIntoDB(response: Response<MovieResponse>) {
+    fun deleteListMovieDatabase() {
+        return movieDao.deleteMovies()
+    }
+
+    fun insertMovieDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDao.insertMovie(movieReview) }
         }
