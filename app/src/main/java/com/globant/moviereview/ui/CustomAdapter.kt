@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
-import com.globant.moviereview.model.returnFactorMovieRating
+import com.globant.moviereview.utils.Constants
 import com.globant.moviereview.utils.MovieReviewEvents
 import kotlinx.android.synthetic.main.list_item.view.movieImage
 import kotlinx.android.synthetic.main.list_item.view.original_title
@@ -27,7 +27,13 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
     private val movieReviewList: ArrayList<MovieReview> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+        return ViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                        R.layout.list_item,
+                        parent,
+                        false
+                )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -58,4 +64,9 @@ class CustomAdapter(private val listener: MovieReviewEvents) :
             }
         }
     }
+
+}
+
+fun returnFactorMovieRating(): Int {
+    return Constants.VOTE_MAX / Constants.RATING_MAX
 }

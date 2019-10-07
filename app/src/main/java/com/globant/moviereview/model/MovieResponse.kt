@@ -13,5 +13,5 @@ import com.google.gson.annotations.SerializedName
 
 class MovieResponse {
     @SerializedName("results")
-    var results: ArrayList<MovieReview> = arrayListOf()
+    var results: List<MovieReview> = arrayListOf()
 }

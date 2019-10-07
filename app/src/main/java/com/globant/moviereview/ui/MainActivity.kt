@@ -18,7 +18,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
