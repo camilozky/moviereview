@@ -25,5 +25,5 @@ interface MovieDao {
     fun getMovies(): List<MovieReview>
 
     @Query("SELECT * FROM movie WHERE movie.id=:id")
-    fun getMovieDetail(id: Int?): MovieReview
+    fun getMovieDetail(id: Int): MovieReview
 }

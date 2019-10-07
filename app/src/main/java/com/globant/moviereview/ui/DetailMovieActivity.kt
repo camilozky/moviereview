@@ -32,8 +32,8 @@ class DetailMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieReview = getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(intent.extras?.getInt(ID_MOVIE))
-        inflateView(movieReview)
+        val movieReview = intent.extras?.getInt(ID_MOVIE)?.let { getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(it) }
+        movieReview?.let { inflateView(it) }
     }
 
     private fun inflateView(movieReview: MovieReview) {
