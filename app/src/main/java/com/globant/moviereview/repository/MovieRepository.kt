@@ -44,17 +44,10 @@ class MovieRepository(private val context: Context) {
                                 deleteListMovieDatabase()
                             }
                             insertMovieDatabase(response)
-                            getListMovieDatabase()
                         }
-                        //TODO: Ask info to database
-                        else -> Toast.makeText(
-                                context,
-                                "There is not movies",
-                                Toast.LENGTH_SHORT
-                        ).show()
+                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
@@ -62,10 +55,6 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
         }
-        return movieDao.getMovies()
-    }
-
-    fun getListMovieDatabase(): List<MovieReview> {
         return movieDao.getMovies()
     }
 

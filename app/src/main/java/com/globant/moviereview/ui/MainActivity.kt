@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     private lateinit var movieRepository: MovieRepository
     private lateinit var customAdapter: CustomAdapter
     private var layoutState: Int = LINEAR_LAYOUT
-    private val lastVisibleItemPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +84,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val totalItemCount = recyclerView.layoutManager?.itemCount
-                if (totalItemCount == lastVisibleItemPosition + 1) {
-                    movieRepository.getData()
-
-                }
+                customAdapter.addAll(movieRepository.getData())
             }
         })
     }
