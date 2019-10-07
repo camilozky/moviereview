@@ -17,7 +17,6 @@ import com.google.gson.annotations.SerializedName
 data class MovieReview(
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int,
         @SerializedName("popularity") val popularity: String = "",
-        @SerializedName("voteCount") val voteCount: String = "",
         @SerializedName("video") val video: String = "",
         @SerializedName("poster_path") val posterPath: String = "",
         @SerializedName("adult") val adult: String = "",
