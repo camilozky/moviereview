@@ -51,6 +51,7 @@ class MovieRepository {
                 }
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.e("Error#001", "Error $t.printStackTrace()")
+                    Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
                 }
             })
         } else {
