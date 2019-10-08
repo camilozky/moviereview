@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = customAdapter
         movieRepository = MovieRepository(this)
-        customAdapter.addAll(movieRepository.getListMovieReviewDatabase())
+        customAdapter.addAll(movieRepository.getMovieReviewListFromDatabase())
     }
 
     override fun onResume() {
         super.onResume()
         movieRepository = MovieRepository(this)
-        movieRepository.getListMovieReview()
+        movieRepository.getMovieReviewList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                customAdapter.addAll(MovieRepository(this@MainActivity).getListMovieReviewDatabase())
+                customAdapter.addAll(MovieRepository(this@MainActivity).getMovieReviewListFromDatabase())
             }
         })
     }

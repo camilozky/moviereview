@@ -19,7 +19,7 @@ import retrofit2.Response
  * MovieRepository
  *
  * This Class return the data to the MainActivity
- * a getListMovieReview method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
+ * a getMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
  * implemented with room
  *
  * @author juan.rendon
@@ -35,17 +35,17 @@ class MovieRepository {
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
-    fun getListMovieReview() {
+    fun getMovieReviewList() {
         if (context.hasConnection()) {
             val callMovieResponse = apiService.getListMovieReviewNetwork(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            if (getListMovieReviewDatabase().isNotEmpty()) {
-                                deleteListMovieReviewDatabase()
+                            if (getMovieReviewListFromDatabase().isNotEmpty()) {
+                                deleteMovieReviewListFromDatabase()
                             }
-                            insertListMovieReviewDatabase(response)
+                            insertMovieReviewListIntoDatabase(response)
                         }
                         else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
@@ -60,17 +60,17 @@ class MovieRepository {
         }
     }
 
-    fun getListMovieReviewDatabase(): List<MovieReview> {
+    fun getMovieReviewListFromDatabase(): List<MovieReview> {
         return movieDatabase.getMovies()
     }
 
-    fun insertListMovieReviewDatabase(response: Response<MovieResponse>) {
+    fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
     }
 
-    fun deleteListMovieReviewDatabase() {
+    fun deleteMovieReviewListFromDatabase() {
         return movieDatabase.deleteMovies()
     }
 }
