@@ -7,7 +7,6 @@ package com.globant.moviereview.utils
  *
  * @author juan.rendon
  */
-
 open class Constants {
     companion object {
         const val LINEAR_LAYOUT: Int = 1

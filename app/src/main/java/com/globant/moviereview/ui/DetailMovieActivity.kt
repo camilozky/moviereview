@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.detail_item.textView_title_release_date
  *
  * @author juan.rendon
  */
-
 class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

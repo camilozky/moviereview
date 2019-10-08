@@ -9,7 +9,6 @@ import com.globant.moviereview.model.MovieReview
  *
  * @author juan.rendon
  */
-
 interface MovieReviewEvents {
     fun onItemClicked(movieReview: MovieReview)
 }

@@ -10,7 +10,6 @@ import android.net.ConnectivityManager
  *
  * @author david.mazo
  */
-
 fun Context.hasConnection(): Boolean {
     return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
             ?: false

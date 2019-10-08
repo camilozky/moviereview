@@ -12,20 +12,19 @@ import com.google.gson.annotations.SerializedName
  *
  * @author juan.rendon
  */
-
 @Entity(tableName = "movies")
 data class MovieReview(
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int,
-        @SerializedName("popularity") val popularity: String = "",
-        @SerializedName("video") val video: String = "",
-        @SerializedName("voteCount") val voteCount: Float,
-        @SerializedName("poster_path") val posterPath: String = "",
-        @SerializedName("adult") val adult: String = "",
-        @SerializedName("backdrop_path") val backdropPath: String = "",
-        @SerializedName("original_language") val originalLanguage: String = "",
-        @SerializedName("original_title") val originalTitle: String = "",
-        @SerializedName("title") val title: String = "",
-        @SerializedName("vote_average") val voteAverage: String = "",
-        @SerializedName("overview") val summary: String = "",
-        @SerializedName("release_date") val releaseDate: String = ""
+        var popularity: String,
+        var video: String,
+        @SerializedName("vote_count") var voteCount: Float,
+        @SerializedName("poster_path") var posterPath: String,
+        var adult: String,
+        @SerializedName("backdrop_path") var backdropPath: String,
+        @SerializedName("original_language") var originalLanguage: String,
+        @SerializedName("original_title") var originalTitle: String,
+        var title: String,
+        @SerializedName("vote_average") var voteAverage: String,
+        @SerializedName("overview") var summary: String,
+        @SerializedName("release_date") var releaseDate: String
 )

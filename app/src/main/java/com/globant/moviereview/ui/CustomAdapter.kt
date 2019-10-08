@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.list_item.view.ratingBar
  *
  * @author david.mazo
  */
-
 class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private var listMovieReview: List<MovieReview> = listOf()

@@ -25,7 +25,6 @@ import retrofit2.Response
  *
  * @author juan.rendon
  */
-
 class MovieRepository {
 
     private var context: Context
