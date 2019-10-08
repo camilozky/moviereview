@@ -24,14 +24,10 @@ import retrofit2.Response
  *
  * @author juan.rendon
  */
-class MovieRepository {
+class MovieRepository(context: MainActivity) {
 
-    private var context: Context
+    private var context: Context = context
     private val apiService = ApiService.instance
-
-    constructor(context: MainActivity) {
-        this.context = context
-    }
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
