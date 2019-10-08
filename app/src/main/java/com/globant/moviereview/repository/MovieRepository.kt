@@ -19,7 +19,7 @@ import retrofit2.Response
  * MovieRepository
  *
  * This Class return the data to the MainActivity
- * a getMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
+ * a requestMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
  * implemented with room
  *
  * @author juan.rendon
@@ -31,9 +31,9 @@ class MovieRepository(context: MainActivity) {
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
-    fun getMovieReviewList() {
+    fun requestMovieReviewList() {
         if (context.hasConnection()) {
-            val callMovieResponse = apiService.getListMovieReviewNetwork(APIKEY)
+            val callMovieResponse = apiService.getMovieReviewListFromInternet(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
@@ -67,6 +67,6 @@ class MovieRepository(context: MainActivity) {
     }
 
     fun deleteMovieReviewListFromDatabase() {
-        return movieDatabase.deleteMovies()
+        movieDatabase.deleteMovies()
     }
 }
