@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     override fun onResume() {
         super.onResume()
         movieRepository = MovieRepository(this)
-        movieRepository.getMovieReviewList()
+        movieRepository.requestMovieReviewList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
