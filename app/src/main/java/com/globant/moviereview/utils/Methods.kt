@@ -7,6 +7,6 @@ package com.globant.moviereview.utils
  *
  * @author david.maxo
  */
-fun returnFactorMovieRating(): Int {
+fun getFactorMovieReviewRating(): Int {
     return Constants.VOTE_MAX / Constants.RATING_MAX
 }

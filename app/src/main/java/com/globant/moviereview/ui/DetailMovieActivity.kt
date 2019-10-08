@@ -10,7 +10,7 @@ import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieDatabase.Companion.getMovieDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
-import com.globant.moviereview.utils.returnFactorMovieRating
+import com.globant.moviereview.utils.getFactorMovieReviewRating
 import kotlinx.android.synthetic.main.detail_item.*
 
 
@@ -51,7 +51,7 @@ class DetailMovieActivity : AppCompatActivity() {
                 .fitCenter()
                 .override(1000, 1000)
                 .into(image_view_ic_star)
-        with(movieReview.voteAverage.toFloat() / returnFactorMovieRating()) {
+        with(movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()) {
             rating_bar_average.rating = this
             text_view_average.text = this.toString()
         }
