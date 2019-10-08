@@ -20,7 +20,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("movie/popular?")
-    fun getCurrentData(@Query("api_key") app_id: String): Call<MovieResponse>
+    fun getListMovieReviewNetwork(@Query("api_key") app_id: String): Call<MovieResponse>
 
     companion object {
         val instance: ApiService = Retrofit.Builder()

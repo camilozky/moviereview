@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.globant.moviereview.R
-import com.globant.moviereview.model.MovieDatabase.Companion.getDatabase
+import com.globant.moviereview.model.MovieDatabase.Companion.getMovieDatabase
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.returnFactorMovieRating
@@ -36,7 +36,7 @@ class DetailMovieActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent.extras?.let { bundle ->
             val movieReview = bundle.getInt(ID_MOVIE).let { id ->
-                getDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(id)
+                getMovieDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(id)
             }
             inflateView(movieReview)
         }

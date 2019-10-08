@@ -17,10 +17,10 @@ import retrofit2.Response
 /**
  * MovieRepository
  *
- * The data source is managed by means of an isConnected boolean that is passed as a direct parameter in the getData method
+ * The data source is managed by means of an isConnected boolean that is passed as a direct parameter in the getListMovieReview method
  * A class called ConnectivityChecker was created that asks the OS if it has access the internet
  * An apiService variable of type ApiService is created and it is instantiated
- * a getData method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
+ * a getListMovieReview method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
  * implemented with room
  *
  * @author juan.rendon
@@ -34,19 +34,19 @@ class MovieRepository {
         this.context = context
     }
 
-    private val movieDatabase: MovieDao get() = MovieDatabase.getDatabase(context).getMovieDAO()
+    private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
-    fun getData(): List<MovieReview> {
+    fun getListMovieReview(): List<MovieReview> {
         if (context.hasConnection()) {
-            val callMovieResponse = apiService.getCurrentData(APIKEY)
+            val callMovieResponse = apiService.getListMovieReviewNetwork(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            if (getListMovieDatabase().isNotEmpty()) {
-                                deleteListMovieDatabase()
+                            if (getListMovieReviewDatabase().isNotEmpty()) {
+                                deleteListMovieReviewDatabase()
                             }
-                            insertMovieDatabase(response)
+                            insertListMovieReviewDatabase(response)
                         }
                         else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
@@ -59,18 +59,18 @@ class MovieRepository {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
-        return getListMovieDatabase()
+        return getListMovieReviewDatabase()
     }
 
-    fun getListMovieDatabase(): List<MovieReview> {
+    fun getListMovieReviewDatabase(): List<MovieReview> {
         return movieDatabase.getMovies()
     }
 
-    fun deleteListMovieDatabase() {
+    fun deleteListMovieReviewDatabase() {
         return movieDatabase.deleteMovies()
     }
 
-    fun insertMovieDatabase(response: Response<MovieResponse>) {
+    fun insertListMovieReviewDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
