@@ -8,7 +8,6 @@ import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
-import com.globant.moviereview.ui.MainActivity
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
 import com.globant.moviereview.utils.hasConnection
 import retrofit2.Call
@@ -24,17 +23,14 @@ import retrofit2.Response
  *
  * @author juan.rendon
  */
-class MovieRepository(context: MainActivity) {
+class MovieRepository(private val context: Context) {
 
-    private var context: Context = context
     private val apiService = ApiService.instance
-
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList() {
         if (context.hasConnection()) {
-            val callMovieResponse = apiService.getMovieReviewListFromInternet(APIKEY)
-            callMovieResponse.enqueue(object : Callback<MovieResponse> {
+            apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
