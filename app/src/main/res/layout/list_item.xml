@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/imageItem"
-                android:radius="10dp"
+                android:radius="@dimen/radius_image"
                 android:scaleType="fitCenter"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_launcher"

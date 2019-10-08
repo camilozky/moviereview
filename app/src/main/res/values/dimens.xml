@@ -4,4 +4,5 @@
     <dimen name="margin_normal">8dp</dimen>
     <dimen name="detail_image_width">200dp</dimen>
     <dimen name="detail_image_height">300dp</dimen>
+    <dimen name="radius_image">10dp</dimen>
 </resources>
