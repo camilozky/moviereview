@@ -1,6 +1,7 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDao
@@ -46,11 +47,11 @@ class MovieRepository {
                             }
                             insertListMovieReviewDatabase(response)
                         }
-                        else -> Toast.makeText(context, "There are not movies", Toast.LENGTH_SHORT).show()
+                        else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Log.e("Error#001", "Error $t.printStackTrace()")
+                    Log.e("Error#001", "Error onFailure(call: Call<MovieResponse> $t.printStackTrace()")
                     Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
                 }
             })

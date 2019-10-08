@@ -14,21 +14,23 @@ import com.google.gson.annotations.SerializedName
  */
 @Entity(tableName = "movies")
 data class MovieReview(
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int,
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = "id")
+        var id: Int,
         var popularity: String,
         var video: String,
+        var adult: String,
+        var title: String,
         @SerializedName("vote_count")
         var voteCount: Float,
         @SerializedName("poster_path")
         var posterPath: String,
-        var adult: String,
         @SerializedName("backdrop_path")
         var backdropPath: String,
         @SerializedName("original_language")
         var originalLanguage: String,
         @SerializedName("original_title")
         var originalTitle: String,
-        var title: String,
         @SerializedName("vote_average")
         var voteAverage: String,
         @SerializedName("overview")
