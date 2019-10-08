@@ -46,11 +46,11 @@ class MovieRepository {
                             }
                             insertListMovieReviewDatabase(response)
                         }
-                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
+                        else -> Toast.makeText(context, "There are not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    t.printStackTrace()
+                    Log.e("Error#001", "Error $t.printStackTrace()")
                 }
             })
         } else {
