@@ -6,16 +6,16 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView_movie_title"
+        android:id="@+id/text_view_movie_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:text="Movie Detail"
+        android:text="@string/movie_detail"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/view_line"
+        app:layout_constraintBottom_toTopOf="@id/view_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
         android:layout_marginStart="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_normal"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView_movie_title" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_movie_title" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -36,10 +36,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line">
+        app:layout_constraintTop_toBottomOf="@id/view_line">
 
         <RatingBar
-            android:id="@+id/ratingBar_average"
+            android:id="@+id/rating_bar_average"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_title_original" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_title_original" />
 
         <ScrollView
             android:layout_width="0dp"
@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_release_date">
+            app:layout_constraintTop_toBottomOf="@id/text_view_release_date">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ConstraintLayout"
@@ -72,12 +72,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView_movie_picture"
+                    android:id="@+id/image_view_movie_picture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_summary"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_summary"
                     app:srcCompat="@mipmap/ic_launcher"
                     tools:background="@color/white" />
 
@@ -87,12 +87,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView_movie_picture"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_movie_picture"
                     app:srcCompat="@mipmap/ic_launcher"
                     tools:background="@color/white" />
 
                 <TextView
-                    android:id="@+id/textView_summary"
+                    android:id="@+id/text_view_summary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +104,7 @@
         </ScrollView>
 
         <TextView
-            android:id="@+id/textView_title_original"
+            android:id="@+id/text_view_title_original"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_large"
@@ -116,35 +116,35 @@
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/textView_average"
+            android:id="@+id/text_view_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar_average"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar_average"
             tools:text="8.8" />
 
         <TextView
-            android:id="@+id/textView_title_release_date"
+            android:id="@+id/text_view_title_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/release_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_second_line" />
+            app:layout_constraintTop_toBottomOf="@id/view_second_line" />
 
         <TextView
-            android:id="@+id/textView_release_date"
+            android:id="@+id/text_view_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_title_release_date"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title_release_date"
             tools:text="TextView" />
 
         <TextView
@@ -157,7 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_average" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_average" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

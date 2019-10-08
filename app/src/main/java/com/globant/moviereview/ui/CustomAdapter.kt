@@ -9,9 +9,9 @@ import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.MovieReviewEvents
 import com.globant.moviereview.utils.returnFactorMovieRating
-import kotlinx.android.synthetic.main.list_item.view.movieImage
+import kotlinx.android.synthetic.main.list_item.view.movie_image
 import kotlinx.android.synthetic.main.list_item.view.original_title
-import kotlinx.android.synthetic.main.list_item.view.ratingBar
+import kotlinx.android.synthetic.main.list_item.view.rating_bar
 
 /**
  * CustomAdapter
@@ -48,9 +48,9 @@ class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adap
                     .centerCrop()
                     .fitCenter()
                     .override(1000, 1000)
-                    .into(itemView.movieImage)
+                    .into(itemView.movie_image)
             itemView.original_title.text = movieReview.originalTitle
-            itemView.ratingBar.rating = movieReview.voteAverage.toFloat() / returnFactorMovieRating()
+            itemView.rating_bar.rating = movieReview.voteAverage.toFloat() / returnFactorMovieRating()
             view.setOnClickListener { listener.onItemClicked(movieReview) }
         }
     }
