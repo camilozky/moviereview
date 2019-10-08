@@ -35,7 +35,14 @@ class MovieRepository {
     }
 
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
-
+    /**
+     * getListMovieReview
+     *
+     * First search the database if there is no data, then look for the remote control and if there is no connection or failed response,
+     * then show an error message to the user
+     *
+     * @author david.mazo
+     */
     fun getListMovieReview(): List<MovieReview> {
         if (context.hasConnection()) {
             val callMovieResponse = apiService.getListMovieReviewNetwork(APIKEY)
@@ -62,17 +69,38 @@ class MovieRepository {
         return getListMovieReviewDatabase()
     }
 
+    /**
+     * getListMovieReviewDatabase
+     *
+     * returns a query of the movie database movie list
+     *
+     * @author david.mazo
+     */
     fun getListMovieReviewDatabase(): List<MovieReview> {
         return movieDatabase.getMovies()
     }
 
-    fun deleteListMovieReviewDatabase() {
-        return movieDatabase.deleteMovies()
-    }
-
+    /**
+     * insertListMovieReviewDatabase
+     *
+     * insert each movie in the movies table with a loop
+     *
+     * @author david.mazo
+     */
     fun insertListMovieReviewDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
+    }
+
+    /**
+     * deleteListMovieReviewDatabase
+     *
+     * delete all the contents of the movies table
+     *
+     * @author david.mazo
+     */
+    fun deleteListMovieReviewDatabase() {
+        return movieDatabase.deleteMovies()
     }
 }
