@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeVariables()
-        onRecyclerViewScroll()
+        addOnScrollListener()
     }
 
     private fun initializeVariables() {
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         startActivity(intent)
     }
 
-    private fun onRecyclerViewScroll() {
+    private fun addOnScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
