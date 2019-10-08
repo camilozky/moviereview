@@ -8,8 +8,9 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.MovieReviewEvents
-import com.globant.moviereview.utils.getFactorMovieReviewRating
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.list_item.view.movie_image
+import kotlinx.android.synthetic.main.list_item.view.original_title
+import kotlinx.android.synthetic.main.list_item.view.rating_bar
 
 /**
  * CustomAdapter
@@ -49,7 +50,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adap
                     .into(itemView.movie_image)
             itemView.original_title.text = movieReview.originalTitle
             itemView.rating_bar.rating =
-                movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()
+                    movieReview.voteAverage.toFloat() / MainActivity.getFactorMovieReviewRating()
             view.setOnClickListener { listener.onItemClicked(movieReview) }
         }
     }

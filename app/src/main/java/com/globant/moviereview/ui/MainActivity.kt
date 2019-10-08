@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
+import com.globant.moviereview.utils.Constants
 import com.globant.moviereview.utils.Constants.Companion.GRILL_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -99,5 +100,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         fun createIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
         }
+
+        fun getFactorMovieReviewRating(): Int {
+            return Constants.VOTE_MAX / Constants.RATING_MAX
+        }
     }
 }
+
