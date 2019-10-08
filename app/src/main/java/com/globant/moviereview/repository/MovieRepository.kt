@@ -17,9 +17,7 @@ import retrofit2.Response
 /**
  * MovieRepository
  *
- * The data source is managed by means of an isConnected boolean that is passed as a direct parameter in the getListMovieReview method
- * A class called ConnectivityChecker was created that asks the OS if it has access the internet
- * An apiService variable of type ApiService is created and it is instantiated
+ * This Class return the data to the MainActivity
  * a getListMovieReview method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
  * implemented with room
  *
@@ -40,10 +38,7 @@ class MovieRepository {
         if (context.hasConnection()) {
             val callMovieResponse = apiService.getListMovieReviewNetwork(APIKEY)
             callMovieResponse.enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(
-                    callMovieResponse: Call<MovieResponse>,
-                    response: Response<MovieResponse>
-                ) {
+                override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
                             if (getListMovieReviewDatabase().isNotEmpty()) {
@@ -51,14 +46,9 @@ class MovieRepository {
                             }
                             insertListMovieReviewDatabase(response)
                         }
-                        else -> Toast.makeText(
-                            context,
-                            "There is not movies",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        else -> Toast.makeText(context, "There is not movies", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     t.printStackTrace()
                 }
@@ -72,13 +62,13 @@ class MovieRepository {
         return movieDatabase.getMovies()
     }
 
-    fun deleteListMovieReviewDatabase() {
-        return movieDatabase.deleteMovies()
-    }
-
     fun insertListMovieReviewDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
+    }
+
+    fun deleteListMovieReviewDatabase() {
+        return movieDatabase.deleteMovies()
     }
 }

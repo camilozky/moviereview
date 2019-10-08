@@ -3,7 +3,7 @@ package com.globant.moviereview.utils
 /**
  * Methods
  *
- * Extra functions
+ * returns the factor to qualify on a scale of 1 to 5
  *
  * @author david.maxo
  */
