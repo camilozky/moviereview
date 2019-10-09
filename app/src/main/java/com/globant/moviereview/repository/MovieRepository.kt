@@ -1,6 +1,7 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
@@ -9,7 +10,6 @@ import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
-import com.globant.moviereview.utils.hasConnection
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +42,7 @@ class MovieRepository(private val context: Context) {
                         else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.e("Error#001", "Error onFailure(call: Call<MovieResponse> $t.printStackTrace()")
                     Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
@@ -50,6 +51,11 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun Context.hasConnection(): Boolean {
+        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
+                ?: false
     }
 
     fun getMovieReviewListFromDatabase(): List<MovieReview> {
