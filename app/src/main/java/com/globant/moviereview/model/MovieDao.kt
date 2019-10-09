@@ -13,7 +13,6 @@ import androidx.room.Query
  *
  * @author david.mazo
  */
-
 @Dao
 interface MovieDao {
     /**

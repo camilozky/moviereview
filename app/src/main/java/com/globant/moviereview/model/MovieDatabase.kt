@@ -13,7 +13,6 @@ import androidx.room.RoomDatabase
  *
  * @author david.mazo
  */
-
 @Database(entities = [MovieReview::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
