@@ -54,11 +54,6 @@ class MovieRepository(private val context: Context) {
         }
     }
 
-    private fun Context.hasConnection(): Boolean {
-        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
-                ?: false
-    }
-
     fun getMovieReviewListFromDatabase(): List<MovieReview> {
         return movieDatabase.getMovies()
     }

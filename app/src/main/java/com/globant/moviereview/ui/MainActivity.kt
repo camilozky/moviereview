@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeVariables()
-        addOnScrollListener()
     }
 
     private fun initializeVariables() {
@@ -85,15 +83,6 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
         intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
-    }
-
-    private fun addOnScrollListener() {
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                customAdapter.addAll(MovieRepository(this@MainActivity).getMovieReviewListFromDatabase())
-            }
-        })
     }
 
     companion object {
