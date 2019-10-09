@@ -19,7 +19,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
     private lateinit var movieRepository: MovieRepository
-    private lateinit var customAdapter: CustomAdapter
+    private lateinit var movieReviewListAdapter: MovieReviewListAdapter
     private var layoutState: Int = LINEAR_LAYOUT
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +37,14 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     }
 
     private fun initializeVariables() {
-        customAdapter = CustomAdapter(this)
+        movieReviewListAdapter = MovieReviewListAdapter(this)
         gridLayoutManager = GridLayoutManager(this, 2)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
-        recyclerView.adapter = customAdapter
+        recyclerView.adapter = movieReviewListAdapter
         movieRepository = MovieRepository(this)
-        customAdapter.addAll(movieRepository.getMovieReviewListFromDatabase())
+        movieReviewListAdapter.addAll(movieRepository.getMovieReviewListFromDatabase())
     }
 
     override fun onResume() {

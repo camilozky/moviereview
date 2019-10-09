@@ -8,18 +8,17 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.list_item.view.movie_image
-import kotlinx.android.synthetic.main.list_item.view.original_title
-import kotlinx.android.synthetic.main.list_item.view.rating_bar
+import kotlinx.android.synthetic.main.list_item.view.*
 
 /**
- * CustomAdapter
+ * MovieReviewListAdapter
  *
  * Provides access to the data items, makes a View for each item in the data set
  *
  * @author david.mazo
  */
-class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class MovieReviewListAdapter(private val movieReviewEvents: MovieReviewEvents) :
+    RecyclerView.Adapter<MovieReviewListAdapter.ViewHolder>() {
 
     private var listMovieReview: List<MovieReview> = listOf()
 
@@ -32,7 +31,7 @@ class CustomAdapter(private val listener: MovieReviewEvents) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(listMovieReview[position], listener)
+        holder.bindItem(listMovieReview[position], movieReviewEvents)
     }
 
     fun addAll(listMovieReview: List<MovieReview>) {
