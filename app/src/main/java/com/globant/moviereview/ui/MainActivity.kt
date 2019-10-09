@@ -1,6 +1,5 @@
 package com.globant.moviereview.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -19,7 +18,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -80,16 +79,12 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     }
 
     override fun onItemClicked(movieReview: MovieReview) {
-        val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
+        val intent: Intent = DetailMovieActivity.createIntent(this)
         intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
     }
 
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
-        }
-
         fun getFactorMovieReviewRating(): Int {
             return Constants.VOTE_MAX / Constants.RATING_MAX
         }
