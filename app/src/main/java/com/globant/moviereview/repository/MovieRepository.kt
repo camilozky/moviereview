@@ -1,6 +1,7 @@
 package com.globant.moviereview.repository
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
 import com.globant.moviereview.api.ApiService
@@ -9,7 +10,6 @@ import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
-import com.globant.moviereview.utils.hasConnection
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +17,7 @@ import retrofit2.Response
 /**
  * MovieRepository
  *
- * This Class return the data to the MainActivity
+ * This Class returns the data to the MainActivity
  * a requestMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
  * implemented with room
  *
@@ -29,7 +29,8 @@ class MovieRepository(private val context: Context) {
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList() {
-        if (context.hasConnection()) {
+        val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
             apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
