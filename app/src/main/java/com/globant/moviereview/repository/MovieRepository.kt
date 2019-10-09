@@ -43,6 +43,7 @@ class MovieRepository(private val context: Context) {
                         else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.e("Error#001", "Error onFailure(call: Call<MovieResponse> $t.printStackTrace()")
                     Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
@@ -51,6 +52,11 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun Context.hasConnection(): Boolean {
+        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
+                ?: false
     }
 
     fun getMovieReviewListFromDatabase(): List<MovieReview> {
