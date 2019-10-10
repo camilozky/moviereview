@@ -43,13 +43,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = movieReviewListAdapter
         movieRepository = MovieRepository(this)
-        movieReviewListAdapter.addAll(movieRepository.getMovieReviewListFromDatabase())
-    }
-
-    override fun onResume() {
-        super.onResume()
-        movieRepository = MovieRepository(this)
-        movieRepository.requestMovieReviewList()
+        movieReviewListAdapter.addAll(movieRepository.requestMovieReviewList())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,4 +84,3 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         }
     }
 }
-

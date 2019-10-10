@@ -28,22 +28,18 @@ class MovieRepository(private val context: Context) {
     private val apiService = ApiService.instance
     private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
 
-    fun requestMovieReviewList() {
+    fun requestMovieReviewList(): List<MovieReview> {
         val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
             apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> {
-                            if (getMovieReviewListFromDatabase().isNotEmpty()) {
-                                deleteMovieReviewListFromDatabase()
-                            }
                             insertMovieReviewListIntoDatabase(response)
                         }
                         else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.e("Error#001", "Error onFailure(call: Call<MovieResponse> $t.printStackTrace()")
                     Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
@@ -52,19 +48,12 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    fun getMovieReviewListFromDatabase(): List<MovieReview> {
-        return movieDatabase.getMovies()
+        return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovies()
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
             movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
         }
-    }
-
-    fun deleteMovieReviewListFromDatabase() {
-        movieDatabase.deleteMovies()
     }
 }
