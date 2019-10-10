@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
-import com.globant.moviereview.utils.Constants
 import com.globant.moviereview.utils.Constants.Companion.GRILL_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
@@ -76,11 +75,5 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         val intent: Intent = DetailMovieActivity.createIntent(this)
         intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
-    }
-
-    companion object {
-        fun getFactorMovieReviewRating(): Int {
-            return Constants.VOTE_MAX / Constants.RATING_MAX
-        }
     }
 }

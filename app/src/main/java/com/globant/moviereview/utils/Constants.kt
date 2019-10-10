@@ -19,3 +19,7 @@ open class Constants {
         const val RATING_MAX = 5
     }
 }
+
+fun getFactorMovieReviewRating(): Int {
+    return Constants.VOTE_MAX / Constants.RATING_MAX
+}
