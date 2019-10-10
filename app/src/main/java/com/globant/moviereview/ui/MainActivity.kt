@@ -18,7 +18,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initializeVariables()
+        initComponents()
     }
 
-    private fun initializeVariables() {
+    private fun initComponents() {
         movieReviewListAdapter = MovieReviewListAdapter(this)
         gridLayoutManager = GridLayoutManager(this, 2)
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -34,9 +34,7 @@ class MovieRepository(private val context: Context) {
             apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
-                        200 -> {
-                            insertMovieReviewListIntoDatabase(response)
-                        }
+                        200 -> insertMovieReviewListIntoDatabase(response)
                         else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
                     }
                 }

@@ -32,10 +32,4 @@ interface MovieDao {
      */
     @Query("SELECT * FROM movies WHERE movies.id=:id")
     fun getMovieDetail(id: Int): MovieReview
-
-    /**
-     * deleteMovies-> delete all rows
-     */
-    @Query("DELETE from movies")
-    fun deleteMovies()
 }
