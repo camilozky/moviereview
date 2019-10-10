@@ -5,4 +5,8 @@
     <string name="average">Average</string>
     <string name="release_date">Release date</string>
     <string name="movie_detail">Movie Detail</string>
+    <string name="no_movies">There are no movies</string>
+    <string name="error_001">Error#001</string>
+    <string name="no_connection">There is not network connection</string>
+    <string name="no_response_from_server">There was an error trying to get the list movies from remote server</string>
 </resources>

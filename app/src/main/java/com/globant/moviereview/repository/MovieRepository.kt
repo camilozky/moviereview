@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
+import com.globant.moviereview.R
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieDatabase
@@ -18,8 +19,8 @@ import retrofit2.Response
  * MovieRepository
  *
  * This Class returns the data to the MainActivity
- * a requestMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue, through retrofit and populates the bd
- * implemented with room
+ * a requestMovieReviewList method is created and asks if there is access to the internet performs a callback.enqueue,
+ * through retrofit and populates the bd implemented with room
  *
  * @author juan.rendon
  */
@@ -35,16 +36,16 @@ class MovieRepository(private val context: Context) {
                 override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                     when (response.code()) {
                         200 -> insertMovieReviewListIntoDatabase(response)
-                        else -> Toast.makeText(context, "There are no movies", Toast.LENGTH_SHORT).show()
+                        else -> Toast.makeText(context, context.getString(R.string.no_movies), Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Log.e("Error#001", "Error onFailure(call: Call<MovieResponse> $t.printStackTrace()")
-                    Toast.makeText(context, "There was an error trying to get the list movies from remote server", Toast.LENGTH_SHORT).show()
+                    Log.e(context.getString(R.string.error_001), t.printStackTrace().toString())
+                    Toast.makeText(context, context.getString(R.string.no_response_from_server), Toast.LENGTH_SHORT).show()
                 }
             })
         } else {
-            Toast.makeText(context, "There is not network connection", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
         return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovies()
     }
