@@ -1,9 +1,12 @@
 package com.globant.moviereview.ui
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +20,7 @@ import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
 import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
 import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
 
@@ -41,8 +44,23 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = movieReviewListAdapter
-        movieRepository = MovieRepository(this)
-        movieReviewListAdapter.addAll(movieRepository.requestMovieReviewList())
+        if (hasConnection()) {
+            movieRepository = MovieRepository(this)
+            if (movieRepository.requestMovieReviewList().isNotEmpty())
+                movieReviewListAdapter.addAll(movieRepository.requestMovieReviewList())
+            else
+                Toast.makeText(
+                    this,
+                    this@MainActivity.getString(R.string.no_movies),
+                    Toast.LENGTH_SHORT
+                ).show()
+        } else
+            Toast.makeText(
+                this,
+                this@MainActivity.getString(R.string.no_connection),
+                Toast.LENGTH_SHORT
+            ).show()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -75,5 +93,13 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         val intent: Intent = DetailMovieActivity.createIntent(this)
         intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
+    }
+
+
+    private fun hasConnection(): Boolean {
+        val connectivityManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 }
