@@ -44,6 +44,8 @@ class DetailMovieActivity : AppCompatActivity() {
         text_view_movie_title.text = movieReview.title
         text_view_title_release_date.text = movieReview.releaseDate
         text_view_summary.text = movieReview.summary
+        rating_bar_average.rating = movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()
+        text_view_average.text = (movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()).toString()
         Glide.with(image_view_movie_picture)
                 .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                 .centerCrop()
@@ -56,10 +58,6 @@ class DetailMovieActivity : AppCompatActivity() {
                 .fitCenter()
                 .override(1000, 1000)
                 .into(image_view_ic_star)
-        with(movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()) {
-            rating_bar_average.rating = this
-            text_view_average.text = this.toString()
-        }
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
