@@ -20,6 +20,10 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("movie/popular?")
+            /**
+             * getMovieReviewListFromInternet
+             * In this interface the token or api_key of themoviedb.com URL is passed as a parameter and returns a call of type MovieResponse
+             */
     fun getMovieReviewListFromInternet(@Query("api_key") app_id: String): Call<MovieResponse>
 
     companion object {
