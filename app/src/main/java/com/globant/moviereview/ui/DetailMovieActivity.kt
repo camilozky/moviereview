@@ -31,7 +31,8 @@ class DetailMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.globant.moviereview.R.layout.detail_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        bindMovieReview(getMovieDatabase(this).getMovieDAO().getMovieReviewDetail(intent.getIntExtra(ID_MOVIE, 0)))
+        val idMovieReview: MovieReview = getMovieDatabase(this).getMovieDAO().getMovieReviewDetail(intent.getIntExtra(ID_MOVIE, 0))
+        bindMovieReview(idMovieReview)
     }
 
     private fun bindMovieReview(movieReview: MovieReview) {
