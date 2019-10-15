@@ -29,23 +29,26 @@ class MovieRepository(private val context: Context) {
     private val movieDatabase: MovieDao get() = MovieReviewDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList(): List<MovieReview> {
-            apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
-                    when (response.code()) {
-                        200 -> insertMovieReviewListIntoDatabase(response)
-                        else -> Toast.makeText(context, context.getString(R.string.no_movies), Toast.LENGTH_SHORT).show()
-                    }
+        apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
+                when (response.code()) {
+                    200 -> insertMovieReviewListIntoDatabase(response)
+                    else -> Toast.makeText(context, context.getString(R.string.no_movies), Toast.LENGTH_SHORT).show()
                 }
-                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Log.e(context.getString(R.string.error_001), t.printStackTrace().toString())
-                }
-            })
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Log.e(context.getString(R.string.error_001), t.printStackTrace().toString())
+            }
+        })
         return MovieReviewDatabase.getMovieDatabase(context).getMovieDAO().getMovieReviewList()
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
-        response.body()?.let { movieResponse ->
-            movieResponse.results.forEach { movieReview -> movieDatabase.insertMovieReview(movieReview) }
+        response.body()?.let {
+            for (movieReview: MovieReview in it.results) {
+                movieDatabase.insertMovieReview(movieReview)
+            }
         }
     }
 }
