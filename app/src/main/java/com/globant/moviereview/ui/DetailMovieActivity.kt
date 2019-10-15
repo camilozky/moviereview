@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.MovieReviewDatabase.Companion.getMovieDatabase
 import com.globant.moviereview.utils.ID_MOVIE
@@ -30,14 +29,9 @@ import kotlinx.android.synthetic.main.detail_item.text_view_title_release_date
 class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.detail_item)
+        setContentView(com.globant.moviereview.R.layout.detail_item)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        intent.extras?.let { bundle ->
-            val movieReview = bundle.getInt(ID_MOVIE).let { id ->
-                getMovieDatabase(this@DetailMovieActivity).getMovieDAO().getMovieReviewDetail(id)
-            }
-            bindMovieReview(movieReview)
-        }
+        bindMovieReview(getMovieDatabase(this).getMovieDAO().getMovieReviewDetail(intent.getIntExtra(ID_MOVIE, 0)))
     }
 
     private fun bindMovieReview(movieReview: MovieReview) {
