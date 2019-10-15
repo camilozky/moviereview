@@ -20,6 +20,11 @@ open class Constants {
     }
 }
 
+/**
+ * getFactorMovieReviewRating
+ *
+ * with this method the factor is returned so that it is divided by vote
+ */
 fun getFactorMovieReviewRating(): Int {
     return Constants.VOTE_MAX / Constants.RATING_MAX
 }
