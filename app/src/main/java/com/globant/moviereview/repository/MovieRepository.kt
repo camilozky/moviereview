@@ -45,8 +45,8 @@ class MovieRepository(private val context: Context) {
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
-        response.body()?.let {
-            for (movieReview: MovieReview in it.results) {
+        response.body()?.apply {
+            for (movieReview: MovieReview in this.results) {
                 movieDatabase.insertMovieReview(movieReview)
             }
         }
