@@ -44,15 +44,14 @@ class MovieReviewListAdapter(private val movieReviewEvents: MovieReviewEvents) :
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bindItem(movieReview: MovieReview, listener: MovieReviewEvents) {
+            itemView.original_title.text = movieReview.originalTitle
+            itemView.rating_bar.rating = movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()
             Glide.with(itemView)
                     .load("http://image.tmdb.org/t/p/w500" + movieReview.posterPath)
                     .centerCrop()
                     .fitCenter()
                     .override(1000, 1000)
                     .into(itemView.movie_image)
-            itemView.original_title.text = movieReview.originalTitle
-            itemView.rating_bar.rating =
-                    movieReview.voteAverage.toFloat() / getFactorMovieReviewRating()
             view.setOnClickListener { listener.onItemClicked(movieReview) }
         }
     }

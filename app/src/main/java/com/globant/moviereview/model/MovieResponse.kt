@@ -1,7 +1,5 @@
 package com.globant.moviereview.model
 
-import com.google.gson.annotations.SerializedName
-
 /**
  * MovieResponse
  *
@@ -11,6 +9,5 @@ import com.google.gson.annotations.SerializedName
  * @author juan.rendon
  */
 class MovieResponse {
-    @SerializedName("results")
     var results: List<MovieReview> = listOf()
 }

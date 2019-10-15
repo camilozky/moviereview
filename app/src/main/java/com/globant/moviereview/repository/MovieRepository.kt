@@ -9,7 +9,7 @@ import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.MovieReviewDatabase
-import com.globant.moviereview.utils.Constants.Companion.APIKEY
+import com.globant.moviereview.utils.APIKEY
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

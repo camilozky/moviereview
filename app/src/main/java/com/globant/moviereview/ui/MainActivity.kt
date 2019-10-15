@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.repository.MovieRepository
-import com.globant.moviereview.utils.Constants.Companion.GRILL_LAYOUT
-import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
-import com.globant.moviereview.utils.Constants.Companion.LINEAR_LAYOUT
-import com.globant.moviereview.utils.Constants.Companion.STAGGERED_LAYOUT
+import com.globant.moviereview.utils.GRILL_LAYOUT
+import com.globant.moviereview.utils.ID_MOVIE
+import com.globant.moviereview.utils.LINEAR_LAYOUT
 import com.globant.moviereview.utils.MovieReviewEvents
+import com.globant.moviereview.utils.STAGGERED_LAYOUT
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity(), MovieReviewEvents {
@@ -44,23 +44,14 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = movieReviewListAdapter
+        movieRepository = MovieRepository(this)
         if (hasConnection()) {
-            movieRepository = MovieRepository(this)
             if (movieRepository.requestMovieReviewList().isNotEmpty())
                 movieReviewListAdapter.addAll(movieRepository.requestMovieReviewList())
             else
-                Toast.makeText(
-                        this,
-                        this@MainActivity.getString(R.string.no_movies),
-                        Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, this@MainActivity.getString(R.string.no_movies), Toast.LENGTH_SHORT).show()
         } else
-            Toast.makeText(
-                    this,
-                    this@MainActivity.getString(R.string.no_connection),
-                    Toast.LENGTH_SHORT
-            ).show()
-
+            Toast.makeText(this, this@MainActivity.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,10 +86,8 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
         startActivity(intent)
     }
 
-
     private fun hasConnection(): Boolean {
-        val connectivityManager =
-                this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }

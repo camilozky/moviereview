@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.globant.moviereview.R
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.MovieReviewDatabase.Companion.getMovieDatabase
-import com.globant.moviereview.utils.Constants.Companion.ID_MOVIE
+import com.globant.moviereview.utils.ID_MOVIE
 import com.globant.moviereview.utils.getFactorMovieReviewRating
 import kotlinx.android.synthetic.main.detail_item.image_view_ic_star
 import kotlinx.android.synthetic.main.detail_item.image_view_movie_picture
