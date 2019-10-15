@@ -6,9 +6,9 @@ import android.widget.Toast
 import com.globant.moviereview.R
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDao
-import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
+import com.globant.moviereview.model.MovieReviewDatabase
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +26,7 @@ import retrofit2.Response
 class MovieRepository(private val context: Context) {
 
     private val apiService = ApiService.instance
-    private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
+    private val movieDatabase: MovieDao get() = MovieReviewDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList(): List<MovieReview> {
             apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
@@ -40,7 +40,7 @@ class MovieRepository(private val context: Context) {
                     Log.e(context.getString(R.string.error_001), t.printStackTrace().toString())
                 }
             })
-        return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovieReview()
+        return MovieReviewDatabase.getMovieDatabase(context).getMovieDAO().getMovieReviewList()
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
