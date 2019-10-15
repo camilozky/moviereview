@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), MovieReviewEvents {
     }
 
     override fun onItemClicked(movieReview: MovieReview) {
-        val intent: Intent = DetailMovieActivity.createIntent(this)
+        val intent: Intent = DetailMovieActivity.createIntent(this@MainActivity)
         intent.putExtra(ID_MOVIE, movieReview.id)
         startActivity(intent)
     }
