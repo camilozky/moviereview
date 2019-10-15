@@ -19,13 +19,13 @@ interface MovieDao {
      * insertMovieReview -> insert a registry of movie_review into Database movie_review
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovieReview(movie_review: MovieReview)
+    fun insertMovieReview(movieReview: MovieReview)
 
     /**
-     * getMovieReview -> consult a list of all the movie_review
+     * getMovieReviewList -> consult a list of all the movie_review
      */
     @Query("SELECT * from movie_review")
-    fun getMovieReview(): List<MovieReview>
+    fun getMovieReviewList(): List<MovieReview>
 
     /**
      * getMovieReviewDetail -> consult a movie_review

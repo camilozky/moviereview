@@ -7,9 +7,9 @@ import android.widget.Toast
 import com.globant.moviereview.R
 import com.globant.moviereview.api.ApiService
 import com.globant.moviereview.model.MovieDao
-import com.globant.moviereview.model.MovieDatabase
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
+import com.globant.moviereview.model.MovieReviewDatabase
 import com.globant.moviereview.utils.Constants.Companion.APIKEY
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +27,7 @@ import retrofit2.Response
 class MovieRepository(private val context: Context) {
 
     private val apiService = ApiService.instance
-    private val movieDatabase: MovieDao get() = MovieDatabase.getMovieDatabase(context).getMovieDAO()
+    private val movieDatabase: MovieDao get() = MovieReviewDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList(): List<MovieReview> {
         val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
@@ -47,7 +47,7 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, context.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
-        return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovieReview()
+        return MovieReviewDatabase.getMovieDatabase(context).getMovieDAO().getMovieReviewList()
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
