@@ -34,13 +34,13 @@ class DetailMovieActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent.extras?.let { bundle ->
             val movieReview = bundle.getInt(ID_MOVIE).let { id ->
-                getMovieDatabase(this@DetailMovieActivity).getMovieDAO().getMovieDetail(id)
+                getMovieDatabase(this@DetailMovieActivity).getMovieDAO().getMovieReviewDetail(id)
             }
-            loadMovieReview(movieReview)
+            bindMovieReview(movieReview)
         }
     }
 
-    private fun loadMovieReview(movieReview: MovieReview) {
+    private fun bindMovieReview(movieReview: MovieReview) {
         text_view_movie_title.text = movieReview.title
         text_view_title_release_date.text = movieReview.releaseDate
         text_view_summary.text = movieReview.summary

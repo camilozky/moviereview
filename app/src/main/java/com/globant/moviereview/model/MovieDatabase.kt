@@ -20,7 +20,7 @@ abstract class MovieDatabase : RoomDatabase() {
 
     companion object {
         fun getMovieDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
-                MovieDatabase::class.java, "MovieDatabase")
+                MovieDatabase::class.java, "MovieReviewDatabase")
                 .allowMainThreadQueries()
                 .build()
     }

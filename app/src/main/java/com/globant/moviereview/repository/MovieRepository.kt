@@ -47,12 +47,12 @@ class MovieRepository(private val context: Context) {
         } else {
             Toast.makeText(context, context.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
-        return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovies()
+        return MovieDatabase.getMovieDatabase(context).getMovieDAO().getMovieReview()
     }
 
     fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
         response.body()?.let { movieResponse ->
-            movieResponse.results.forEach { movieReview -> movieDatabase.insertMovie(movieReview) }
+            movieResponse.results.forEach { movieReview -> movieDatabase.insertMovieReview(movieReview) }
         }
     }
 }

@@ -8,7 +8,7 @@ import androidx.room.Query
 /**
  * MovieDao
  *
- * to Access Database @Entity(tableName = "movies") data class MovieReview
+ * to Access Database @Entity(tableName = "movie_review") data class MovieReview
  * facilitates access to stored data with the following methods
  *
  * @author david.mazo
@@ -16,20 +16,20 @@ import androidx.room.Query
 @Dao
 interface MovieDao {
     /**
-     * insertMovie -> insert a movie into Database movies
+     * insertMovieReview -> insert a registry of movie_review into Database movie_review
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movie: MovieReview)
+    fun insertMovieReview(movie_review: MovieReview)
 
     /**
-     * getMovies -> consult a list of all the movies
+     * getMovieReview -> consult a list of all the movie_review
      */
-    @Query("SELECT * from movies")
-    fun getMovies(): List<MovieReview>
+    @Query("SELECT * from movie_review")
+    fun getMovieReview(): List<MovieReview>
 
     /**
-     * getMovieDetail -> consult a movie
+     * getMovieReviewDetail -> consult a movie_review
      */
-    @Query("SELECT * FROM movies WHERE movies.id=:id")
-    fun getMovieDetail(id: Int): MovieReview
+    @Query("SELECT * FROM movie_review WHERE movie_review.id=:id")
+    fun getMovieReviewDetail(id: Int): MovieReview
 }
