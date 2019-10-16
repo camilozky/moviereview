@@ -1,7 +1,7 @@
 package com.globant.moviereview.api
 
 import com.globant.moviereview.model.MovieResponse
-import com.globant.moviereview.utils.BASEURL
+import com.globant.moviereview.utils.BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,7 +28,7 @@ interface ApiService {
 
     companion object {
         val instance: ApiService = Retrofit.Builder()
-                .baseUrl(BASEURL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(ApiService::class.java)
     }

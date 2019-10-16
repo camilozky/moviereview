@@ -9,7 +9,7 @@ import com.globant.moviereview.model.MovieDao
 import com.globant.moviereview.model.MovieResponse
 import com.globant.moviereview.model.MovieReview
 import com.globant.moviereview.model.MovieReviewDatabase
-import com.globant.moviereview.utils.APIKEY
+import com.globant.moviereview.utils.API_KEY
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +29,7 @@ class MovieRepository(private val context: Context) {
     private val movieDatabase: MovieDao get() = MovieReviewDatabase.getMovieDatabase(context).getMovieDAO()
 
     fun requestMovieReviewList(): List<MovieReview> {
-        apiService.getMovieReviewListFromInternet(APIKEY).enqueue(object : Callback<MovieResponse> {
+        apiService.getMovieReviewListFromInternet(API_KEY).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(callMovieResponse: Call<MovieResponse>, response: Response<MovieResponse>) {
                 when (response.code()) {
                     200 -> insertMovieReviewListIntoDatabase(response)
