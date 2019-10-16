@@ -44,7 +44,7 @@ class MovieRepository(private val context: Context) {
         return MovieReviewDatabase.getMovieDatabase(context).getMovieDAO().getMovieReviewList()
     }
 
-    fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
+    private fun insertMovieReviewListIntoDatabase(response: Response<MovieResponse>) {
         if (response.body() != null) {
             for (movieReview: MovieReview in response.body()!!.results) {
                 movieDatabase.insertMovieReview(movieReview)
